@@ -63,10 +63,18 @@ public class Main {
 		final double player_radius = 12.0;						// raio (tamanho aproximado do player)
 		double player_explosion_start = 0;						// instante do início da explosão
 		double player_explosion_end = 0;						// instante do final da explosão
-		long player_nextShot;									// instante a partir do qual pode haver um próximo tiro
+		private long player_nextShot;									// instante a partir do qual pode haver um próximo tiro
+
+		Player (long time) {
+			this.player_nextShot = time;
+		}
 
 		void setNextShot (long time){
 			this.player_nextShot = time;
+		}
+		
+		void setX (double x){
+			this.player_X = x;
 		}
 
 
@@ -86,8 +94,7 @@ public class Main {
 
 		/* variáveis do player */
 		
-		Player p = new Player();
-		p.setNextShot(currentTime); //melhorar o setter
+		Player p = new Player(currentTime);
 
 		/* variáveis dos projéteis disparados pelo player */
 		
