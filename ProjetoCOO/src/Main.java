@@ -54,7 +54,7 @@ public class Main {
 		return freeArray;
 	}
 
-	class Player {
+	static class Player {
 		int player_state = ACTIVE;								// estado
 		double player_X = GameLib.WIDTH / 2;					// coordenada x
 		double player_Y = GameLib.HEIGHT * 0.90;				// coordenada y
