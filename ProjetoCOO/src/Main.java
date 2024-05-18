@@ -77,6 +77,29 @@ public class Main {
 			this.player_X = x;
 		}
 
+		void movePlayer (long delta) {
+			if(GameLib.iskeyPressed(GameLib.KEY_UP)) this.player_Y -= delta * this.player_VY;
+			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) this.player_Y += delta * this.player_VY;
+			if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) this.player_X -= delta * this.player_VX;
+			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.player_X += delta * this.player_VY;
+		}
+
+		void shoot (){
+			if(currentTime > p.player_nextShot){
+						
+				int free = findFreeIndex(projectile_states);
+										
+				if(free < projectile_states.length){
+					
+					projectile_X[free] = p.player_X;
+					projectile_Y[free] = p.player_Y - 2 * p.player_radius;
+					projectile_VX[free] = 0.0;
+					projectile_VY[free] = -1.0;
+					projectile_states[free] = 1;
+					p.player_nextShot = currentTime + 100;
+				}
+			}
+		}
 
 	}
 	
@@ -530,10 +553,7 @@ public class Main {
 			
 			if(p.player_state == ACTIVE){
 				
-				if(GameLib.iskeyPressed(GameLib.KEY_UP)) p.player_Y -= delta * p.player_VY;
-				if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) p.player_Y += delta * p.player_VY;
-				if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) p.player_X -= delta * p.player_VX;
-				if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) p.player_X += delta * p.player_VY;
+				p.movePlayer(delta);
 				if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
 					
 					if(currentTime > p.player_nextShot){
@@ -549,7 +569,7 @@ public class Main {
 							projectile_states[free] = 1;
 							p.player_nextShot = currentTime + 100;
 						}
-					}	
+					}
 				}
 			}
 			
