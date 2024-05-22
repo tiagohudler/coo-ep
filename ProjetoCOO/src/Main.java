@@ -112,7 +112,12 @@ public class Main {
 		void spawnEnemy() {
 			this.enemies.add(new Enemy1());
 		}
-
+		double getX(int i) {
+			return enemies.get(i).X;
+		}
+		double getY(int i) {
+			return enemies.get(i).Y;
+		}
 	}
 	
 	/* Método principal */
@@ -273,8 +278,8 @@ public class Main {
 							
 				for(int i = 0; i < enemies1.enemies.size(); i++){
 					
-					double dx = enemy1_X[i] - p.player_X;
-					double dy = enemy1_Y[i] - p.player_Y;
+					double dx = enemies1.getX(i) - p.player_X;
+					double dy = enemies1.getY(i) - p.player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
 					if(dist < (p.player_radius + enemy1_radius) * 0.8){
