@@ -1,4 +1,8 @@
 import java.awt.Color;
+import java.util.*;
+
+
+
 
 public class Main {
 	
@@ -84,21 +88,29 @@ public class Main {
 			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.player_X += delta * this.player_VY;
 		}
 
-		void shoot (){
-			if(currentTime > p.player_nextShot){
-						
-				int free = findFreeIndex(projectile_states);
-										
-				if(free < projectile_states.length){
-					
-					projectile_X[free] = p.player_X;
-					projectile_Y[free] = p.player_Y - 2 * p.player_radius;
-					projectile_VX[free] = 0.0;
-					projectile_VY[free] = -1.0;
-					projectile_states[free] = 1;
-					p.player_nextShot = currentTime + 100;
-				}
-			}
+	}
+
+	static class Enemy1 {
+		double X;
+		double Y;
+		double V;
+		double angle;
+		double RV;
+		double explosion_start;
+		double explosion_end;
+		long nextShoot;
+		double radius = 9.0;
+	}
+
+	static class Enemies1 {
+		List<Enemy1> enemies = new ArrayList<Enemy1>();
+		long nextEnemy = System.currentTimeMillis() + 2000;
+
+		void updateNextEnemy (){
+			this.nextEnemy = System.currentTimeMillis() + 2000;
+		}
+		void spawnEnemy() {
+			this.enemies.add(new Enemy1());
 		}
 
 	}
@@ -128,6 +140,8 @@ public class Main {
 		double [] projectile_VY = new double[10];				// velocidades no eixo y
 
 		/* variáveis dos inimigos tipo 1 */
+
+		Enemies1 enemies1 = new Enemies1();
 		
 		int [] enemy1_states = new int[10];						// estados
 		double [] enemy1_X = new double[10];					// coordenadas x
@@ -257,7 +271,7 @@ public class Main {
 			
 				/* colisões player - inimigos */
 							
-				for(int i = 0; i < enemy1_states.length; i++){
+				for(int i = 0; i < enemies1.enemies.size(); i++){
 					
 					double dx = enemy1_X[i] - p.player_X;
 					double dy = enemy1_Y[i] - p.player_Y;
