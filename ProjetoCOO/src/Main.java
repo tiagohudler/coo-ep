@@ -90,15 +90,53 @@ public class Main {
 	}
 
 	static class Projectile {
-		int [] projectile_states;			// estados
-		double [] projectile_X;				// coordenadas x
-		double [] projectile_Y;				// coordenadas y
-		double [] projectile_VX;			// velocidades no eixo x
-		double [] projectile_VY;			// velocidades no eixo y
+		int projectile_state = INACTIVE;			// estado
+		double projectile_X;				// coordenadas x
+		double projectile_Y;				// coordenadas y
+		double projectile_VX;			// velocidades no eixo x
+		double projectile_VY;			// velocidades no eixo y
 	}
 
 	static class PlayerProjectiles {
 		List<Projectile> p_projectiles = new ArrayList<Projectile>();
+		void verifyColisions (int[]enemy1_states){
+			for(int k = 0; k < this.p_projectiles.size(); k++){
+				
+				for(int i = 0; i < enemy1_states.length; i++){
+										
+					if(enemy1_states[i] == ACTIVE){
+					
+						double dx = enemy1_X[i] - projectile_X[k];
+						double dy = enemy1_Y[i] - projectile_Y[k];
+						double dist = Math.sqrt(dx * dx + dy * dy);
+						
+						if(dist < enemy1_radius){
+							
+							enemy1_states[i] = EXPLODING;
+							enemy1_explosion_start[i] = currentTime;
+							enemy1_explosion_end[i] = currentTime + 500;
+						}
+					}
+				}
+				
+				for(int i = 0; i < enemy2_states.length; i++){
+					
+					if(enemy2_states[i] == ACTIVE){
+						
+						double dx = enemy2_X[i] - projectile_X[k];
+						double dy = enemy2_Y[i] - projectile_Y[k];
+						double dist = Math.sqrt(dx * dx + dy * dy);
+						
+						if(dist < enemy2_radius){
+							
+							enemy2_states[i] = EXPLODING;
+							enemy2_explosion_start[i] = currentTime;
+							enemy2_explosion_end[i] = currentTime + 500;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	
@@ -119,6 +157,8 @@ public class Main {
 		Player p = new Player(currentTime);
 
 		/* variáveis dos projéteis disparados pelo player */
+
+		PlayerProjectiles p_projectiles = new PlayerProjectiles();
 		
 		int [] projectile_states = new int[10];					// estados
 		double [] projectile_X = new double[10];				// coordenadas x
