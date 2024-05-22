@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.*;
 
 public class Main {
 	
@@ -63,7 +64,7 @@ public class Main {
 		final double player_radius = 12.0;						// raio (tamanho aproximado do player)
 		double player_explosion_start = 0;						// instante do início da explosão
 		double player_explosion_end = 0;						// instante do final da explosão
-		private long player_nextShot;									// instante a partir do qual pode haver um próximo tiro
+		private long player_nextShot;							// instante a partir do qual pode haver um próximo tiro
 
 		Player (long time) {
 			this.player_nextShot = time;
@@ -84,24 +85,22 @@ public class Main {
 			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.player_X += delta * this.player_VY;
 		}
 
-		void shoot (){
-			if(currentTime > p.player_nextShot){
-						
-				int free = findFreeIndex(projectile_states);
-										
-				if(free < projectile_states.length){
-					
-					projectile_X[free] = p.player_X;
-					projectile_Y[free] = p.player_Y - 2 * p.player_radius;
-					projectile_VX[free] = 0.0;
-					projectile_VY[free] = -1.0;
-					projectile_states[free] = 1;
-					p.player_nextShot = currentTime + 100;
-				}
-			}
-		}
+		
 
 	}
+
+	static class Projectile {
+		int [] projectile_states;			// estados
+		double [] projectile_X;				// coordenadas x
+		double [] projectile_Y;				// coordenadas y
+		double [] projectile_VX;			// velocidades no eixo x
+		double [] projectile_VY;			// velocidades no eixo y
+	}
+
+	static class PlayerProjectiles {
+		List<Projectile> p_projectiles = new ArrayList<Projectile>();
+	}
+
 	
 	/* Método principal */
 	
