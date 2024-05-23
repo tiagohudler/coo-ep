@@ -170,8 +170,8 @@ public class Main {
 			this.enemies.get(i).explosion_end = System.currentTimeMillis()+500;
 		}
 
-		boolean canShoot (int i) {
-			return System.currentTimeMillis() > this.enemies.get(i).nextShoot ? true : false; 
+		boolean canShoot (int i, Player p) {
+			return (System.currentTimeMillis() > this.enemies.get(i).nextShoot && this.getY(i) < p.player_Y) ? true : false; 
 		}
 		void updateNextShot (int i){
 			this.enemies.get(i).nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
@@ -447,31 +447,31 @@ public class Main {
 				}
 				
 					
-					/* verificando se inimigo saiu da tela */
-					if(enemies1.getY(i) > GameLib.HEIGHT + 10) {
-						
-						enemies1.remove(i);
-					}
-					else {
+				/* verificando se inimigo saiu da tela */
+				if(enemies1.getY(i) > GameLib.HEIGHT + 10) {
 					
-						enemies1.updatePosition(i, delta);
+					enemies1.remove(i);
+				}
+				else {
+				
+					enemies1.updatePosition(i, delta);
+					
+					if(enemies1.canShoot(i, p)){
+																						
+						int free = findFreeIndex(e_projectile_states);
 						
-						if(enemies1.canShoot(i) && enemies1.getY(i) < p.player_Y){
-																							
-							int free = findFreeIndex(e_projectile_states);
+						if(free < e_projectile_states.length){
 							
-							if(free < e_projectile_states.length){
-								
-								e_projectile_X[free] = enemies1.getX(i);
-								e_projectile_Y[free] = enemies1.getY(i);
-								e_projectile_VX[free] = Math.cos(enemies1.getAngle(i)) * 0.45;
-								e_projectile_VY[free] = Math.sin(enemies1.getAngle(i)) * 0.45 * (-1.0);
-								e_projectile_states[free] = 1;
-								
-								enemies1.updateNextShot(i);
-							}
+							e_projectile_X[free] = enemies1.getX(i);
+							e_projectile_Y[free] = enemies1.getY(i);
+							e_projectile_VX[free] = Math.cos(enemies1.getAngle(i)) * 0.45;
+							e_projectile_VY[free] = Math.sin(enemies1.getAngle(i)) * 0.45 * (-1.0);
+							e_projectile_states[free] = 1;
+							
+							enemies1.updateNextShot(i);
 						}
 					}
+				}
 				
 			}
 			
