@@ -66,6 +66,18 @@ public class Main {
 		double explosion_start = 0;
 		double explosion_end = 0;
 		long nextShoot = System.currentTimeMillis() + 500;
+
+		void updatePosition (long delta);
+
+		double getExplosionEnd();
+		double getExplosionStart();
+
+		void setState (int state);
+
+		void explode ();
+
+		boolean canShoot (Player p);
+		void updateNextShot ();
 	}
 
 	static class Player {
@@ -181,9 +193,8 @@ public class Main {
 			this.enemies.remove(i);
 		}
 
-
-
 	}
+
 	
 	/* Método principal */
 	
