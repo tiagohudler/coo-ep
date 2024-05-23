@@ -122,6 +122,38 @@ public class Main {
 		double explosion_start = 0;
 		double explosion_end = 0;
 		long nextShoot = System.currentTimeMillis() + 500;
+
+		public void updatePosition (long delta) {
+
+			this.X += this.V * Math.cos(this.angle) * delta;
+			this.Y += this.V * Math.sin(this.angle) * delta * (-1.0);
+			this.angle += this.RV * delta;
+			
+		}
+
+		public double getExplosionEnd () {
+			return this.explosion_end;
+		}
+		public double getExplosionStart() {
+			return this.explosion_start;
+		}
+
+		public void setState (int state){
+			this.state = state;
+		}
+
+		public void explode (){
+			this.state = EXPLODING;
+			this.explosion_start = System.currentTimeMillis();
+			this.explosion_end = System.currentTimeMillis()+500;
+		}
+
+		public boolean canShoot (Player p){
+			return (System.currentTimeMillis() > this.nextShoot && this.Y < p.player_Y) ? true : false;
+		}
+		public void updateNextShot (){
+			this.nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
+		}
 	}
 
 	static class Enemies1 {
