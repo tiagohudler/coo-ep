@@ -66,6 +66,18 @@ public class Main {
 		double explosion_start = 0;
 		double explosion_end = 0;
 		long nextShoot = System.currentTimeMillis() + 500;
+
+		void updatePosition (long delta);
+
+		double getExplosionEnd();
+		double getExplosionStart();
+
+		void setState (int state);
+
+		void explode ();
+
+		boolean canShoot (Player p);
+		void updateNextShot ();
 	}
 
 	static class Player {
@@ -110,6 +122,38 @@ public class Main {
 		double explosion_start = 0;
 		double explosion_end = 0;
 		long nextShoot = System.currentTimeMillis() + 500;
+
+		public void updatePosition (long delta) {
+
+			this.X += this.V * Math.cos(this.angle) * delta;
+			this.Y += this.V * Math.sin(this.angle) * delta * (-1.0);
+			this.angle += this.RV * delta;
+			
+		}
+
+		public double getExplosionEnd () {
+			return this.explosion_end;
+		}
+		public double getExplosionStart() {
+			return this.explosion_start;
+		}
+
+		public void setState (int state){
+			this.state = state;
+		}
+
+		public void explode (){
+			this.state = EXPLODING;
+			this.explosion_start = System.currentTimeMillis();
+			this.explosion_end = System.currentTimeMillis()+500;
+		}
+
+		public boolean canShoot (Player p){
+			return (System.currentTimeMillis() > this.nextShoot && this.Y < p.player_Y) ? true : false;
+		}
+		public void updateNextShot (){
+			this.nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
+		}
 	}
 
 	static class Enemies1 {
@@ -170,8 +214,8 @@ public class Main {
 			this.enemies.get(i).explosion_end = System.currentTimeMillis()+500;
 		}
 
-		boolean canShoot (int i) {
-			return System.currentTimeMillis() > this.enemies.get(i).nextShoot ? true : false; 
+		boolean canShoot (int i, Player p) {
+			return (System.currentTimeMillis() > this.enemies.get(i).nextShoot && this.getY(i) < p.player_Y) ? true : false; 
 		}
 		void updateNextShot (int i){
 			this.enemies.get(i).nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
@@ -180,7 +224,9 @@ public class Main {
 		void remove (int i){
 			this.enemies.remove(i);
 		}
+
 	}
+
 	
 	/* Método principal */
 	
@@ -443,34 +489,33 @@ public class Main {
 					}
 				}
 				
-				if(enemies1.getState(i) == ACTIVE){
 					
-					/* verificando se inimigo saiu da tela */
-					if(enemies1.getY(i) > GameLib.HEIGHT + 10) {
-						
-						enemies1.remove(i);
-					}
-					else {
+				/* verificando se inimigo saiu da tela */
+				if(enemies1.getY(i) > GameLib.HEIGHT + 10) {
 					
-						enemies1.updatePosition(i, delta);
+					enemies1.remove(i);
+				}
+				else {
+				
+					enemies1.updatePosition(i, delta);
+					
+					if(enemies1.canShoot(i, p)){
+																						
+						int free = findFreeIndex(e_projectile_states);
 						
-						if(enemies1.canShoot(i) && enemies1.getY(i) < p.player_Y){
-																							
-							int free = findFreeIndex(e_projectile_states);
+						if(free < e_projectile_states.length){
 							
-							if(free < e_projectile_states.length){
-								
-								e_projectile_X[free] = enemies1.getX(i);
-								e_projectile_Y[free] = enemies1.getY(i);
-								e_projectile_VX[free] = Math.cos(enemies1.getAngle(i)) * 0.45;
-								e_projectile_VY[free] = Math.sin(enemies1.getAngle(i)) * 0.45 * (-1.0);
-								e_projectile_states[free] = 1;
-								
-								enemies1.updateNextShot(i);
-							}
+							e_projectile_X[free] = enemies1.getX(i);
+							e_projectile_Y[free] = enemies1.getY(i);
+							e_projectile_VX[free] = Math.cos(enemies1.getAngle(i)) * 0.45;
+							e_projectile_VY[free] = Math.sin(enemies1.getAngle(i)) * 0.45 * (-1.0);
+							e_projectile_states[free] = 1;
+							
+							enemies1.updateNextShot(i);
 						}
 					}
 				}
+				
 			}
 			
 			/* inimigos tipo 2 */
@@ -551,7 +596,6 @@ public class Main {
 			}
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-			//TODO: criar um método encapsulado para add inimigos
 					
 			enemies1.spawnEnemy();
 			
