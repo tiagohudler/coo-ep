@@ -124,8 +124,10 @@ public class Main {
 			this.nextEnemy = System.currentTimeMillis() + 500;
 		}
 		void spawnEnemy() {
-			this.enemies.add(new Enemy1());
-			updateNextEnemy();
+			if(System.currentTimeMillis() > this.nextEnemy && this.nEnemies() < 10){
+				this.enemies.add(new Enemy1());
+				updateNextEnemy();
+			}
 		}
 
 		double getX(int i) {
@@ -550,13 +552,8 @@ public class Main {
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 			//TODO: criar um método encapsulado para add inimigos
-			if(currentTime > enemies1.nextEnemy){
-				
-				if(enemies1.nEnemies() < 10){
 					
-					enemies1.spawnEnemy();
-				}
-			}
+			enemies1.spawnEnemy();
 			
 			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
 			
