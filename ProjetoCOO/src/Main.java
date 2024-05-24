@@ -486,6 +486,7 @@ public class Main {
 					if(currentTime > enemies1.getExplosionEnd(i)){
 						
 						enemies1.remove(i);
+						continue;
 					}
 				}
 				
