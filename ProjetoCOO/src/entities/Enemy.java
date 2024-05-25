@@ -13,7 +13,6 @@ abstract public class Enemy {
     abstract int getState();
     
     public abstract double getX();
-    abstract void setX(long delta);
 
     public abstract double getY ();
 
@@ -29,7 +28,6 @@ abstract public class Enemy {
     abstract void explode ();
 
     abstract boolean canShoot (Player p);
-    abstract void updateNextShot ();
 
     abstract void shoot (EnemyProjectiles ep);
 }

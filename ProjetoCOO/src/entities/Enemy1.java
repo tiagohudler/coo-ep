@@ -1,6 +1,6 @@
 package entities;
 
-class Enemy1 extends Enemy {
+public class Enemy1 extends Enemy {
 	States states = new States();
 
     private int state = states.ACTIVE;
@@ -16,16 +16,12 @@ class Enemy1 extends Enemy {
 	public double getX (){
 		return this.X;
 	}
-	void setX(long delta){
-		this.X += this.V * Math.cos(this.angle) * delta;
-	}
+	
 
 	public double getY() {
 		return this.Y;
 	}
-	void setY(long delta){
-		this.Y += this.V * Math.sin(this.angle) * delta * (-1.0);
-	}
+	
 
 	public double getAngle() {
 		return angle;
@@ -62,9 +58,7 @@ class Enemy1 extends Enemy {
 	boolean canShoot (Player p){
 		return (System.currentTimeMillis() > this.nextShoot && this.Y < p.Y) ? true : false;
 	}
-	void updateNextShot (){
-		this.nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
-	}
+	
 
 	void shoot (EnemyProjectiles ep){
 		Projectile p = new Projectile();
@@ -73,6 +67,6 @@ class Enemy1 extends Enemy {
 		p.VX = Math.cos(this.angle) * 0.45;
 		p.VY = Math.sin(this.angle) * 0.45 * (-1.0);
 		ep.addProjectile(p);
-		this.updateNextShot();
+		this.nextShoot = (long) (System.currentTimeMillis() + 200 + Math.random() * 500);
 	}
 }

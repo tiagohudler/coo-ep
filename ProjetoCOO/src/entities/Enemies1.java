@@ -13,7 +13,7 @@ public class Enemies1 {
     }
     
     public void spawnEnemy() {
-        if(System.currentTimeMillis() > this.nextEnemy && this.nEnemies() < 10){
+        if(System.currentTimeMillis() > this.nextEnemy && this.enemies.size() < 10){
             this.enemies.add(new Enemy1());
             this.nextEnemy = System.currentTimeMillis() + 500;
         }
@@ -33,7 +33,7 @@ public class Enemies1 {
 
     public void updatePositions (long delta, EnemyProjectiles ep, Player p) {
         //TODO: declarar delta aq dentro
-        for (int i = 0; i<enemies.size(); i++){
+        for (int i = 0; i < this.enemies.size(); i++){
             if(this.enemies.get(i).getState() == states.EXPLODING){
 					
                 if(System.currentTimeMillis() > this.enemies.get(i).getExplosionEnd()){
@@ -46,7 +46,7 @@ public class Enemies1 {
             /* verificando se inimigo saiu da tela */
             if(this.enemies.get(i).getY() > GameLib.HEIGHT + 10) {
                 
-                enemies.remove(i);
+                this.enemies.remove(i);
             } 
             else {
             
@@ -83,9 +83,7 @@ public class Enemies1 {
     public boolean canShoot (int i, Player p) {
         return this.enemies.get(i).canShoot(p);
     }
-    public void updateNextShot (int i){
-        this.enemies.get(i).updateNextShot();
-    }
+    
 
     public void remove (int i){
         this.enemies.remove(i);
