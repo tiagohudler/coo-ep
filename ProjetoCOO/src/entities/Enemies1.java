@@ -1,22 +1,21 @@
-package entites;
+package entities;
 import java.util.*;
 
-public class Enemies <T extends Enemy> {
+public class Enemies1 {
     //TODO: radius na classe do inimigo
-    double radius = 9.0;
-    List<T> enemies = new ArrayList<T>();
+    States states = new States();
+    private final double radius = 9.0;
+    List<Enemy1> enemies = new ArrayList<Enemy1>();
     long nextEnemy = System.currentTimeMillis() + 2000;
 
     public int nEnemies (){
         return this.enemies.size();
     }
-    public void updateNextEnemy (){
-        this.nextEnemy = System.currentTimeMillis() + 500;
-    }
+    
     public void spawnEnemy() {
         if(System.currentTimeMillis() > this.nextEnemy && this.nEnemies() < 10){
             this.enemies.add(new Enemy1());
-            updateNextEnemy();
+            this.nextEnemy = System.currentTimeMillis() + 500;
         }
     }
 
@@ -29,14 +28,37 @@ public class Enemies <T extends Enemy> {
     }
 
     public double getAngle(int i) {
-        return enemies.get(i).angle;
+        return enemies.get(i).getAngle();
     }
 
-    public void updatePosition (int i, long delta) {
-        //TODO: setX
-        enemies.get(i).setX(delta);
-        enemies.get(i).Y += enemies.get(i).V * Math.sin(enemies.get(i).angle) * delta * (-1.0);
-        enemies.get(i).angle += enemies.get(i).RV * delta;
+    public void updatePositions (long delta, EnemyProjectiles ep, Player p) {
+        //TODO: declarar delta aq dentro
+        for (int i = 0; i<enemies.size(); i++){
+            if(this.enemies.get(i).getState() == states.EXPLODING){
+					
+                if(System.currentTimeMillis() > this.enemies.get(i).getExplosionEnd()){
+                    
+                    this.remove(i);
+                    continue;
+                }
+            }
+
+            /* verificando se inimigo saiu da tela */
+            if(this.enemies.get(i).getY() > GameLib.HEIGHT + 10) {
+                
+                enemies.remove(i);
+            } 
+            else {
+            
+                this.enemies.get(i).updatePosition(delta);
+                
+                if(this.enemies.get(i).canShoot(p)){
+                        
+                    this.enemies.get(i).shoot(ep);
+                    
+                }
+            }
+        }
     }
 
     public int getState(int i){
@@ -69,4 +91,7 @@ public class Enemies <T extends Enemy> {
         this.enemies.remove(i);
     }
 
+    public double getRadius (){
+        return this.radius;
+    }
 }

@@ -1,7 +1,6 @@
 import java.awt.Color;
-import java.util.*;
 
-import entites.*;
+import entities.*;
 
 
 public class Main {
@@ -84,7 +83,7 @@ public class Main {
 
 		/* variáveis dos inimigos tipo 1 */
 
-		Enemies<Enemy1> enemies1 = new Enemies<Enemy1>();
+		Enemies1 enemies1 = new Enemies1();
 		
 		/* variáveis dos inimigos tipo 2 */
 		
@@ -103,6 +102,8 @@ public class Main {
 		
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
+		EnemyProjectiles e_projectiles = new EnemyProjectiles();
+
 		int [] e_projectile_states = new int[200];				// estados
 		double [] e_projectile_X = new double[200];				// coordenadas x
 		double [] e_projectile_Y = new double[200];				// coordenadas y
@@ -185,17 +186,7 @@ public class Main {
 				
 				/* colisões player - projeteis (inimigo) */
 				
-				for(int i = 0; i < e_projectile_states.length; i++){
-					
-					double dx = e_projectile_X[i] - p.getX();
-					double dy = e_projectile_Y[i] - p.getY();
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < (p.getRadius() + e_projectile_radius) * 0.8){
-						
-						p.explode();
-					}
-				}
+				p.verifyCollisions(e_projectiles);
 			
 				/* colisões player - inimigos */
 							
@@ -205,7 +196,7 @@ public class Main {
 					double dy = enemies1.getY(i) - p.getY();
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
-					if(dist < (p.getRadius() + enemies1.radius) * 0.8){
+					if(dist < (p.getRadius() + enemies1.getRadius()) * 0.8){
 						
 						p.explode();
 					}
@@ -234,7 +225,7 @@ public class Main {
 					double dy = enemies1.getY(i) - projectile_Y[k];
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
-					if(dist < enemies1.radius){
+					if(dist < enemies1.getRadius()){
 						
 						enemies1.explode(i);
 						
@@ -284,64 +275,12 @@ public class Main {
 			
 			/* projeteis (inimigos) */
 			
-			for(int i = 0; i < e_projectile_states.length; i++){
-				
-				if(e_projectile_states[i] == ACTIVE){
-					
-					/* verificando se projétil saiu da tela */
-					if(e_projectile_Y[i] > GameLib.HEIGHT) {
-						
-						e_projectile_states[i] = INACTIVE;
-					}
-					else {
-					
-						e_projectile_X[i] += e_projectile_VX[i] * delta;
-						e_projectile_Y[i] += e_projectile_VY[i] * delta;
-					}
-				}
-			}
+			
+			e_projectiles.updateStates(delta);
 			
 			// inimigos tipo 1  TODO: botar isso dentro de Enemies1 
 			
-			for(int i = 0; i < enemies1.nEnemies(); i++){
-				
-				if(enemies1.getState(i) == EXPLODING){
-					
-					if(currentTime > enemies1.getExplosionEnd(i)){
-						
-						enemies1.remove(i);
-						continue;
-					}
-				}
-				
-					
-				/* verificando se inimigo saiu da tela */
-				if(enemies1.getY(i) > GameLib.HEIGHT + 10) {
-					
-					enemies1.remove(i);
-				}
-				else {
-				
-					enemies1.updatePosition(i, delta);
-					
-					if(enemies1.canShoot(i, p)){
-																						
-						int free = findFreeIndex(e_projectile_states);
-						
-						if(free < e_projectile_states.length){
-							
-							e_projectile_X[free] = enemies1.getX(i);
-							e_projectile_Y[free] = enemies1.getY(i);
-							e_projectile_VX[free] = Math.cos(enemies1.getAngle(i)) * 0.45;
-							e_projectile_VY[free] = Math.sin(enemies1.getAngle(i)) * 0.45 * (-1.0);
-							e_projectile_states[free] = 1;
-							
-							enemies1.updateNextShot(i);
-						}
-					}
-				}
-				
-			}
+			enemies1.updatePositions(delta, e_projectiles, p);
 			
 			/* inimigos tipo 2 */
 			
@@ -470,7 +409,7 @@ public class Main {
 			
 			if(p.getState() == ACTIVE){
 				
-				p.movePlayer(delta);
+				p.updatePosition(delta);
 				if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
 					
 					if(p.canShoot()){
@@ -484,7 +423,7 @@ public class Main {
 							projectile_VX[free] = 0.0;
 							projectile_VY[free] = -1.0;
 							projectile_states[free] = 1;
-							p.setNextShot(currentTime + 100);
+							p.updateNextShot();
 						}
 					}
 				}
@@ -495,7 +434,7 @@ public class Main {
 			/* Verificando se coordenadas do player ainda estão dentro	*/
 			/* da tela de jogo após processar entrada do usuário.       */
 			
-			if(p.getX() < 0.0) p.setX(0.0);
+			if(p.getX() < 0.0) p.setX(0);
 			if(p.getX() >= GameLib.WIDTH) p.setX(GameLib.WIDTH - 1);
 			if(p.getY() < 25.0) p.setY(25.0);
 			if(p.getY() >= GameLib.HEIGHT) p.setY(GameLib.HEIGHT - 1);
@@ -526,7 +465,7 @@ public class Main {
 						
 			/* desenhando player */
 			
-			if(p.getState() == ACTIVE){
+			if(p.getState() == EXPLODING){
 				
 				double alpha = (currentTime - p.getExplosionStart()) / (p.getExplosionEnd() - p.getExplosionStart());
 				GameLib.drawExplosion(p.getX(), p.getY(), alpha);
@@ -553,13 +492,11 @@ public class Main {
 			
 			/* desenhando projeteis (inimigos) */
 		
-			for(int i = 0; i < e_projectile_states.length; i++){
+			for(int i = 0; i < e_projectiles.nProjectiles(); i++){
 				
-				if(e_projectile_states[i] == ACTIVE){
-	
-					GameLib.setColor(Color.RED);
-					GameLib.drawCircle(e_projectile_X[i], e_projectile_Y[i], e_projectile_radius);
-				}
+				GameLib.setColor(Color.RED);
+				GameLib.drawCircle(e_projectiles.getX(i), e_projectiles.getY(i), e_projectiles.getRadius(i));
+
 			}
 			
 			/* desenhando inimigos (tipo 1) */
@@ -576,7 +513,7 @@ public class Main {
 				if(enemies1.getState(i) == ACTIVE){
 			
 					GameLib.setColor(Color.CYAN);
-					GameLib.drawCircle(enemies1.getX(i), enemies1.getY(i), enemies1.radius);
+					GameLib.drawCircle(enemies1.getX(i), enemies1.getY(i), enemies1.getRadius());
 				}
 			}
 			

@@ -1,8 +1,9 @@
-package entites;
+package entities;
 
-public class Player {
+public class Player{
     //TODO: privatizar
-    int state = ACTIVE;								// estado
+    States states = new States();
+    int state = states.ACTIVE;								// estado
     double X = GameLib.WIDTH / 2;					// coordenada x
     double Y = GameLib.HEIGHT * 0.90;				// coordenada y
     double VX = 0.25;								// velocidade no eixo x
@@ -16,11 +17,11 @@ public class Player {
         this.nextShot = time;
     }
 
-    public void setNextShot (long time){
-        this.nextShot = time;
+    public void updateNextShot (){
+        this.nextShot = System.currentTimeMillis()+100;
     }
     
-    public void setX (double x){
+    public void setX (long x){
         this.X = x;
     }
     public double getX (){
@@ -53,12 +54,12 @@ public class Player {
     }
 
     public void explode (){
-		this.state = EXPLODING;
+		this.state = states.EXPLODING;
 		this.explosion_start = System.currentTimeMillis();
 		this.explosion_end = System.currentTimeMillis()+2000;
 	}
 
-    public void movePlayer (long delta) {
+    public void updatePosition (long delta) {
         if(GameLib.iskeyPressed(GameLib.KEY_UP)) this.Y -= delta * this.VY;
         if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) this.Y += delta * this.VY;
         if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) this.X -= delta * this.VX;
@@ -67,6 +68,20 @@ public class Player {
 
     public boolean canShoot (){
         return System.currentTimeMillis() > this.nextShot ? true : false;
+    }
+
+    public void verifyCollisions (EnemyProjectiles ep){
+        for(int i = 0; i < ep.nProjectiles(); i++){
+					
+            double dx = ep.getX(i) - this.X;
+            double dy = ep.getY(i) - this.Y;
+            double dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if(dist < (this.radius + ep.getRadius(i)) * 0.8){
+                
+                this.explode();
+            }
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package entites;
+package entities;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
