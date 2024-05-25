@@ -1,3 +1,4 @@
+package entites;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -26,7 +27,7 @@ import javax.swing.JFrame;
 /***********************************************************************/
 
 public class GameLib {
-	
+
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 720;
 	
