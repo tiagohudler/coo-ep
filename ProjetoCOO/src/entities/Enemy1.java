@@ -56,7 +56,7 @@ public class Enemy1 extends Enemy {
 	}
 
 	boolean canShoot (Player p){
-		return (System.currentTimeMillis() > this.nextShoot && this.Y < p.Y) ? true : false;
+		return (System.currentTimeMillis() > this.nextShoot && this.Y < p.getY()) ? true : false;
 	}
 	
 

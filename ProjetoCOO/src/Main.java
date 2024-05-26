@@ -109,7 +109,6 @@ public class Main {
 		double [] e_projectile_Y = new double[200];				// coordenadas y
 		double [] e_projectile_VX = new double[200];			// velocidade no eixo x
 		double [] e_projectile_VY = new double[200];			// velocidade no eixo y
-		double e_projectile_radius = 2.0;						// raio (tamanho dos projéteis inimigos)
 		
 		/* estrelas que formam o fundo de primeiro plano */
 		

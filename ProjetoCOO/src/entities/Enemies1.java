@@ -2,7 +2,6 @@ package entities;
 import java.util.*;
 
 public class Enemies1 {
-    //TODO: radius na classe do inimigo
     private States states = new States();
     private final double radius = 9.0;
     private List<Enemy1> enemies = new ArrayList<Enemy1>();

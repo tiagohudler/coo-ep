@@ -1,13 +1,12 @@
 package entities;
 
 public class Player{
-    //TODO: privatizar
-    States states = new States();
-    int state = states.ACTIVE;								// estado
-    double X = GameLib.WIDTH / 2;					// coordenada x
-    double Y = GameLib.HEIGHT * 0.90;				// coordenada y
-    double VX = 0.25;								// velocidade no eixo x
-    double VY = 0.25;								// velocidade no eixo y
+    private States states = new States();
+    private int state = states.ACTIVE;								// estado
+    private double X = GameLib.WIDTH / 2;					// coordenada x
+    private double Y = GameLib.HEIGHT * 0.90;				// coordenada y
+    private double VX = 0.25;								// velocidade no eixo x
+    private double VY = 0.25;								// velocidade no eixo y
     final double radius = 12.0;						// raio (tamanho aproximado do player)
     private double explosion_start = 0;						// instante do início da explosão
     private double explosion_end = 0;						// instante do final da explosão
