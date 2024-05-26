@@ -218,33 +218,34 @@ public class Main {
 			/* colisões projeteis (player) - inimigos */
 			
 			for(int k = 0; k < projectile_states.length; k++){
-				
-				for(int i = 0; i < enemies1.nEnemies(); i++){
-										
-					double dx = enemies1.getX(i) - projectile_X[k];
-					double dy = enemies1.getY(i) - projectile_Y[k];
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < enemies1.getRadius()){
-						
-						enemies1.explode(i);
-						
-					}
-				}
-				
-				for(int i = 0; i < enemy2_states.length; i++){
-					
-					if(enemy2_states[i] == ACTIVE){
-						
-						double dx = enemy2_X[i] - projectile_X[k];
-						double dy = enemy2_Y[i] - projectile_Y[k];
+				if (projectile_states[k] == ACTIVE){
+					for(int i = 0; i < enemies1.nEnemies(); i++){
+											
+						double dx = enemies1.getX(i) - projectile_X[k];
+						double dy = enemies1.getY(i) - projectile_Y[k];
 						double dist = Math.sqrt(dx * dx + dy * dy);
 						
-						if(dist < enemy2_radius){
+						if(dist < enemies1.getRadius()){
 							
-							enemy2_states[i] = EXPLODING;
-							enemy2_explosion_start[i] = currentTime;
-							enemy2_explosion_end[i] = currentTime + 500;
+							enemies1.explode(i);
+							
+						}
+					}
+					
+					for(int i = 0; i < enemy2_states.length; i++){
+						
+						if(enemy2_states[i] == ACTIVE){
+							
+							double dx = enemy2_X[i] - projectile_X[k];
+							double dy = enemy2_Y[i] - projectile_Y[k];
+							double dist = Math.sqrt(dx * dx + dy * dy);
+							
+							if(dist < enemy2_radius){
+								
+								enemy2_states[i] = EXPLODING;
+								enemy2_explosion_start[i] = currentTime;
+								enemy2_explosion_end[i] = currentTime + 500;
+							}
 						}
 					}
 				}
