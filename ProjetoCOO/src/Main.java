@@ -399,7 +399,7 @@ public class Main {
 				
 				if(currentTime > p.getExplosionEnd()){
 					
-					p.setState(EXPLODING);	
+					p.setState(ACTIVE);	
 				}
 			}
 			

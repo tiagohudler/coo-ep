@@ -3,10 +3,10 @@ import java.util.*;
 
 public class Enemies1 {
     //TODO: radius na classe do inimigo
-    States states = new States();
+    private States states = new States();
     private final double radius = 9.0;
-    List<Enemy1> enemies = new ArrayList<Enemy1>();
-    long nextEnemy = System.currentTimeMillis() + 2000;
+    private List<Enemy1> enemies = new ArrayList<Enemy1>();
+    private long nextEnemy = System.currentTimeMillis() + 2000;
 
     public int nEnemies (){
         return this.enemies.size();
