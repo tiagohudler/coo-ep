@@ -9,8 +9,8 @@ public class Player{
     double VX = 0.25;								// velocidade no eixo x
     double VY = 0.25;								// velocidade no eixo y
     final double radius = 12.0;						// raio (tamanho aproximado do player)
-    double explosion_start = 0;						// instante do início da explosão
-    double explosion_end = 0;						// instante do final da explosão
+    private double explosion_start = 0;						// instante do início da explosão
+    private double explosion_end = 0;						// instante do final da explosão
     private long nextShot;									// instante a partir do qual pode haver um próximo tiro
 
     public Player (long time) {
