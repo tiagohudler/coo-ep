@@ -22,4 +22,32 @@ public class Enemies2 extends Enemies1 {
             }
         }
     }
+
+    public void updatePositions (long delta, EnemyProjectiles ep, Player p) {
+        for (int i = 0; i < this.enemies.size(); i++){
+            if(this.enemies.get(i).getState() == states.EXPLODING){
+					
+                if(System.currentTimeMillis() > this.enemies.get(i).getExplosionEnd()){
+                    
+                    this.remove(i);
+                    continue;
+                }
+            }
+
+            /* verificando se inimigo saiu da tela */
+            if(this.enemies.get(i).getX() < -10 || this.enemies.get(i).getX() > GameLib.HEIGHT + 10) {
+                this.enemies.remove(i);
+            } 
+            else {
+            
+                this.enemies.get(i).updatePosition(delta);
+                
+                if(this.enemies.get(i).canShoot()){
+                        
+                    this.enemies.get(i).shoot(ep);
+                    
+                }
+            }
+        }
+    }
 }

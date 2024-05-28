@@ -32,7 +32,6 @@ public class Enemies1 {
     }
 
     public void updatePositions (long delta, EnemyProjectiles ep, Player p) {
-        //TODO: declarar delta aq dentro
         for (int i = 0; i < this.enemies.size(); i++){
             if(this.enemies.get(i).getState() == states.EXPLODING){
 					
