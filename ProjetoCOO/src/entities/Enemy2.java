@@ -50,7 +50,7 @@ class Enemy2 {
 		this.explosion_end = System.currentTimeMillis()+500;
 	}
 
-    void updatePosition (long delta) {
+    void updatePosition (long delta, EnemyProjectiles ep) {
 
 		double previousY = this.Y;
         this.X += this.V * Math.cos(this.angle) * delta;
@@ -81,14 +81,14 @@ class Enemy2 {
 	}
 
     boolean canShoot (){
-        if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.05){
+        if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.06){
 							
             return true;
         }
-        if(this.RV < 0 && Math.abs(this.angle) < 0.05){
+        if(this.RV < 0 && Math.abs(this.angle) < 0.06){
 							
             return true;
-        }
+        } 
         return false;
     }
 
@@ -103,7 +103,7 @@ class Enemy2 {
             double vy = Math.sin(a);
                 
             p.X = this.X;
-            p.Y = this.X;
+            p.Y = this.Y;
             p.VX = vx * 0.30;
             p.VY = vy * 0.30;
             ep.addProjectile(p);

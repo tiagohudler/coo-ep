@@ -78,14 +78,16 @@ public class Enemies2 {
                 this.enemies.remove(i);
             } 
             else {
-            
-                this.enemies.get(i).updatePosition(delta);
                 
                 if(this.enemies.get(i).canShoot()){
                         
                     this.enemies.get(i).shoot(ep);
                     
                 }
+                
+                this.enemies.get(i).updatePosition(delta, ep);
+                
+                
             }
         }
     }

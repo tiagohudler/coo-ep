@@ -402,7 +402,6 @@ public class Main {
 			}
 			
 			/* desenhando inimigos (tipo 1) */
-			//TODO: encaplusar os desenhos
 			
 			for(int i = 0; i < enemies1.nEnemies(); i++){
 				
