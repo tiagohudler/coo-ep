@@ -75,6 +75,7 @@ class Enemy2 extends Enemy1  {
             p.Y = this.X;
             p.VX = vx * 0.30;
             p.VY = vy * 0.30;
+            ep.addProjectile(p);
         }
     }
 }
