@@ -1,6 +1,6 @@
 package entities;
 
-class Enemy2 extends Enemy1  {
+class Enemy2 {
     States states = new States();
 
     private int state = states.ACTIVE;
@@ -14,10 +14,41 @@ class Enemy2 extends Enemy1  {
 	private long nextShoot = System.currentTimeMillis() + 500;
 
     Enemy2 (double spawnX){
-
+        this.state = this.states.ACTIVE;
         this.X = spawnX;
         this.V = 0.42;
     }
+
+    public double getX (){
+		return this.X;
+	}
+	
+
+	public double getY() {
+		return this.Y;
+	}
+	
+
+	public double getAngle() {
+		return angle;
+	}
+
+    double getExplosionEnd () {
+		return this.explosion_end;
+	}
+	double getExplosionStart() {
+		return this.explosion_start;
+	}
+
+	int getState(){
+		return this.state;
+	}
+
+    void explode (){
+		this.state = states.EXPLODING;
+		this.explosion_start = System.currentTimeMillis();
+		this.explosion_end = System.currentTimeMillis()+500;
+	}
 
     void updatePosition (long delta) {
 

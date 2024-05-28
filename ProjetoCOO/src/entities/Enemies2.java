@@ -3,12 +3,51 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemies2 extends Enemies1 {
+public class Enemies2 {
     private States states = new States();
-    private final double radius = 9.0;
+    private final double radius = 12.0;
     private long nextEnemy = System.currentTimeMillis() + 2000;
     double spawnX = GameLib.WIDTH * 0.20;
     private List<Enemy2> enemies = new ArrayList<Enemy2>();
+
+    public int nEnemies (){
+        return this.enemies.size();
+    }
+
+    public double getX(int i) {
+        return enemies.get(i).getX();
+    }
+
+    public double getY(int i) {
+        return enemies.get(i).getY();
+    }
+
+    public double getAngle(int i) {
+        return enemies.get(i).getAngle();
+    }
+
+    public int getState(int i){
+        return this.enemies.get(i).getState();
+    }
+
+    public double getExplosionEnd(int i){
+        return this.enemies.get(i).getExplosionEnd();
+    }
+    public double getExplosionStart(int i){
+        return this.enemies.get(i).getExplosionStart();
+    }
+
+    public void explode (int i){
+        this.enemies.get(i).explode();
+    }
+
+    public void remove (int i){
+        this.enemies.remove(i);
+    }
+
+    public double getRadius (){
+        return this.radius;
+    }
 
     public void spawnEnemy() {
         if (System.currentTimeMillis() > this.nextEnemy){
@@ -50,4 +89,6 @@ public class Enemies2 extends Enemies1 {
             }
         }
     }
+
+
 }
