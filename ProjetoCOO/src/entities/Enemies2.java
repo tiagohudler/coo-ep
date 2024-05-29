@@ -65,7 +65,7 @@ public class Enemies2 {
         }
     }
 
-    public void updatePositions (long delta, EnemyProjectiles ep, Player p) {
+    public void updatePositions (long delta, Projectiles ep, Player p) {
         for (int i = 0; i < this.enemies.size(); i++){
             if(this.enemies.get(i).getState() == states.EXPLODING){
 					
