@@ -10,14 +10,14 @@ public class Player{
     final double radius = 12.0;						// raio (tamanho aproximado do player)
     private double explosion_start = 0;						// instante do início da explosão
     private double explosion_end = 0;						// instante do final da explosão
-    private long nextShot;									// instante a partir do qual pode haver um próximo tiro
+    private long nextShoot;									// instante a partir do qual pode haver um próximo tiro
 
     public Player (long time) {
-        this.nextShot = time;
+        this.nextShoot = time;
     }
 
     public void updateNextShot (){
-        this.nextShot = System.currentTimeMillis()+100;
+        this.nextShoot = System.currentTimeMillis()+100;
     }
     
     public void setX (long x){
@@ -66,7 +66,7 @@ public class Player{
     }
 
     public boolean canShoot (){
-        return System.currentTimeMillis() > this.nextShot ? true : false;
+        return System.currentTimeMillis() > this.nextShoot ? true : false;
     }
 
     public void verifyCollisions (Projectiles ep){
@@ -83,4 +83,17 @@ public class Player{
         }
     }
 
+    public void shoot (Projectiles ep){
+        
+		Projectile p = new Projectile();
+		p.X = this.X;
+		p.Y = this.Y - 2 * this.radius;
+		p.VX = 0.0;
+		p.VY = (-1.0);
+		ep.addProjectile(p);
+		this.nextShoot = System.currentTimeMillis()+100;;
+
+	}
 }
+
+

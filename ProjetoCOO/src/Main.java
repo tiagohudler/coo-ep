@@ -74,13 +74,9 @@ public class Main {
 		Player p = new Player(currentTime);
 
 		/* variáveis dos projéteis disparados pelo player */
-		
-		int [] projectile_states = new int[10];					// estados
-		double [] projectile_X = new double[10];				// coordenadas x
-		double [] projectile_Y = new double[10];				// coordenadas y
-		double [] projectile_VX = new double[10];				// velocidades no eixo x
-		double [] projectile_VY = new double[10];				// velocidades no eixo y
 
+		Projectiles p_projectiles = new Projectiles();
+		
 		/* variáveis dos inimigos tipo 1 */
 
 		Enemies1 enemies1 = new Enemies1();
@@ -111,7 +107,6 @@ public class Main {
 		
 		/* inicializações */
 		
-		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
 		
 		
 		
@@ -201,33 +196,31 @@ public class Main {
 			
 			/* colisões projeteis (player) - inimigos */
 			
-			for(int k = 0; k < projectile_states.length; k++){
-				if (projectile_states[k] == ACTIVE){
-					for(int i = 0; i < enemies1.nEnemies(); i++){
-											
-						double dx = enemies1.getX(i) - projectile_X[k];
-						double dy = enemies1.getY(i) - projectile_Y[k];
-						double dist = Math.sqrt(dx * dx + dy * dy);
-						
-						if(dist < enemies1.getRadius()){
-							
-							enemies1.explode(i);
-							
-						}
-					}
+			for(int k = 0; k < p_projectiles.nProjectiles(); k++){
+				for(int i = 0; i < enemies1.nEnemies(); i++){
+										
+					double dx = enemies1.getX(i) - p_projectiles.getX(k);
+					double dy = enemies1.getY(i) - p_projectiles.getY(k);
+					double dist = Math.sqrt(dx * dx + dy * dy);
 					
-					for(int i = 0; i < enemies2.nEnemies(); i++){
+					if(dist < enemies1.getRadius()){
 						
-							
-						double dx = enemies2.getX(i) - projectile_X[k];
-						double dy = enemies2.getY(i) - projectile_Y[k];
-						double dist = Math.sqrt(dx * dx + dy * dy);
+						enemies1.explode(i);
 						
-						if(dist < enemies2.getRadius()){
-							
-							enemies2.explode(i);
-							
-						}
+					}
+				}
+				
+				for(int i = 0; i < enemies2.nEnemies(); i++){
+					
+						
+					double dx = enemies2.getX(i) - p_projectiles.getX(k);
+					double dy = enemies2.getY(i) - p_projectiles.getY(k);
+					double dist = Math.sqrt(dx * dx + dy * dy);
+					
+					if(dist < enemies2.getRadius()){
+						
+						enemies2.explode(i);
+						
 					}
 				}
 			}
@@ -238,23 +231,8 @@ public class Main {
 			
 			/* projeteis (player) */
 			
-			for(int i = 0; i < projectile_states.length; i++){
-				
-				if(projectile_states[i] == ACTIVE){
-					
-					/* verificando se projétil saiu da tela */
-					if(projectile_Y[i] < 0) {
-						
-						projectile_states[i] = INACTIVE;
-					}
-					else {
-					
-						projectile_X[i] += projectile_VX[i] * delta;
-						projectile_Y[i] += projectile_VY[i] * delta;
-					}
-				}
-			}
-			
+			p_projectiles.updateStates(delta);
+
 			/* projeteis (inimigos) */
 			
 			
@@ -297,17 +275,8 @@ public class Main {
 					
 					if(p.canShoot()){
 						
-						int free = findFreeIndex(projectile_states);
-												
-						if(free < projectile_states.length){
-							
-							projectile_X[free] = p.getX();
-							projectile_Y[free] = p.getY() - 2 * p.getRadius();
-							projectile_VX[free] = 0.0;
-							projectile_VY[free] = -1.0;
-							projectile_states[free] = 1;
-							p.updateNextShot();
-						}
+						p.shoot(p_projectiles);
+
 					}
 				}
 			}
@@ -362,15 +331,14 @@ public class Main {
 			
 			/* deenhando projeteis (player) */
 			
-			for(int i = 0; i < projectile_states.length; i++){
+			for(int i = 0; i < p_projectiles.nProjectiles(); i++){
 				
-				if(projectile_states[i] == ACTIVE){
 					
-					GameLib.setColor(Color.GREEN);
-					GameLib.drawLine(projectile_X[i], projectile_Y[i] - 5, projectile_X[i], projectile_Y[i] + 5);
-					GameLib.drawLine(projectile_X[i] - 1, projectile_Y[i] - 3, projectile_X[i] - 1, projectile_Y[i] + 3);
-					GameLib.drawLine(projectile_X[i] + 1, projectile_Y[i] - 3, projectile_X[i] + 1, projectile_Y[i] + 3);
-				}
+				GameLib.setColor(Color.GREEN);
+				GameLib.drawLine(p_projectiles.getX(i), p_projectiles.getY(i) - 5, p_projectiles.getX(i), p_projectiles.getY(i) + 5);
+				GameLib.drawLine(p_projectiles.getX(i) - 1, p_projectiles.getY(i) - 3, p_projectiles.getX(i) - 1, p_projectiles.getY(i) + 3);
+				GameLib.drawLine(p_projectiles.getX(i) + 1, p_projectiles.getY(i) - 3, p_projectiles.getX(i) + 1, p_projectiles.getY(i) + 3);
+			
 			}
 			
 			/* desenhando projeteis (inimigos) */
