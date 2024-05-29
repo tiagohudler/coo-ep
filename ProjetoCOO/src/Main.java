@@ -95,13 +95,6 @@ public class Main {
 		
 		EnemyProjectiles e_projectiles = new EnemyProjectiles();
 
-		int [] e_projectile_states = new int[200];				// estados
-		double [] e_projectile_X = new double[200];				// coordenadas x
-		double [] e_projectile_Y = new double[200];				// coordenadas y
-		double [] e_projectile_VX = new double[200];			// velocidade no eixo x
-		double [] e_projectile_VY = new double[200];			// velocidade no eixo y
-		double e_projectile_radius = 2.0;						// raio (tamanho dos projéteis inimigos)
-		
 		/* estrelas que formam o fundo de primeiro plano */
 		
 		double [] background1_X = new double[20];
@@ -119,7 +112,7 @@ public class Main {
 		/* inicializações */
 		
 		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
-		for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
+		
 		
 		
 		for(int i = 0; i < background1_X.length; i++){
