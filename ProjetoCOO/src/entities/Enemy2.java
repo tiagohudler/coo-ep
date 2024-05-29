@@ -11,7 +11,7 @@ class Enemy2 {
 	private double RV = 0.0;
 	private double explosion_start = 0;
 	private double explosion_end = 0;
-	private long nextShoot = System.currentTimeMillis() + 500;
+	
 
     Enemy2 (double spawnX){
         this.state = this.states.ACTIVE;

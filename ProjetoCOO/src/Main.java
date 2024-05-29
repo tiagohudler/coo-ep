@@ -89,18 +89,7 @@ public class Main {
 
 		Enemies2 enemies2 = new Enemies2();
 		
-		int [] enemy2_states = new int[10];						// estados
-		double [] enemy2_X = new double[10];					// coordenadas x
-		double [] enemy2_Y = new double[10];					// coordenadas y
-		double [] enemy2_V = new double[10];					// velocidades
-		double [] enemy2_angle = new double[10];				// ângulos (indicam direção do movimento)
-		double [] enemy2_RV = new double[10];					// velocidades de rotação
-		double [] enemy2_explosion_start = new double[10];		// instantes dos inícios das explosões
-		double [] enemy2_explosion_end = new double[10];		// instantes dos finais das explosões
-		double enemy2_spawnX = GameLib.WIDTH * 0.20;			// coordenada x do próximo inimigo tipo 2 a aparecer
-		int enemy2_count = 0;									// contagem de inimigos tipo 2 (usada na "formação de voo")
-		double enemy2_radius = 12.0;							// raio (tamanho aproximado do inimigo 2)
-		long nextEnemy2 = currentTime + 7000;					// instante em que um novo inimigo 2 deve aparecer
+		
 		
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
@@ -131,7 +120,7 @@ public class Main {
 		
 		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
 		for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
-		for(int i = 0; i < enemy2_states.length; i++) enemy2_states[i] = INACTIVE;
+		
 		
 		for(int i = 0; i < background1_X.length; i++){
 			
@@ -244,8 +233,7 @@ public class Main {
 						if(dist < enemies2.getRadius()){
 							
 							enemies2.explode(i);
-							enemy2_explosion_start[i] = currentTime;
-							enemy2_explosion_end[i] = currentTime + 500;
+							
 						}
 					}
 				}
