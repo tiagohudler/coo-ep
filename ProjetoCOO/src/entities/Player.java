@@ -69,7 +69,7 @@ public class Player{
         return System.currentTimeMillis() > this.nextShot ? true : false;
     }
 
-    public void verifyCollisions (EnemyProjectiles ep){
+    public void verifyCollisions (Projectiles ep){
         for(int i = 0; i < ep.nProjectiles(); i++){
 					
             double dx = ep.getX(i) - this.X;

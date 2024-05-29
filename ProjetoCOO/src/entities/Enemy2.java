@@ -50,7 +50,7 @@ class Enemy2 {
 		this.explosion_end = System.currentTimeMillis()+500;
 	}
 
-    void updatePosition (long delta, EnemyProjectiles ep) {
+    void updatePosition (long delta, Projectiles ep) {
 
 		double previousY = this.Y;
         this.X += this.V * Math.cos(this.angle) * delta;
@@ -92,7 +92,7 @@ class Enemy2 {
         return false;
     }
 
-    void shoot (EnemyProjectiles ep){
+    void shoot (Projectiles ep){
         double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
 
         for(int k = 0; k < angles.length; k++){

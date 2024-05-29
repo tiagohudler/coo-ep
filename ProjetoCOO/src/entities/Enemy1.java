@@ -60,7 +60,7 @@ public class Enemy1 extends Enemy {
 	}
 	
 
-	void shoot (EnemyProjectiles ep){
+	void shoot (Projectiles ep){
 		Projectile p = new Projectile();
 		p.X = this.X;
 		p.Y = this.Y;

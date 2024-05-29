@@ -29,5 +29,5 @@ abstract public class Enemy {
 
     abstract boolean canShoot (Player p);
 
-    abstract void shoot (EnemyProjectiles ep);
+    abstract void shoot (Projectiles ep);
 }

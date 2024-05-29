@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemyProjectiles {
+public class Projectiles {
     private List <Projectile> projectiles = new ArrayList<Projectile>();
 
     void addProjectile (Projectile p){

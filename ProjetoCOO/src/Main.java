@@ -93,7 +93,7 @@ public class Main {
 		
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
-		EnemyProjectiles e_projectiles = new EnemyProjectiles();
+		Projectiles e_projectiles = new Projectiles();
 
 		/* estrelas que formam o fundo de primeiro plano */
 		
