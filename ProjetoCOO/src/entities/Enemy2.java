@@ -66,13 +66,14 @@ class Enemy2 {
         }
 
         if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.05){
-							
+            System.out.println("oi");
+			this.shoot(ep);				
             this.RV = 0.0;
             this.angle = 3 * Math.PI;
         }
 
         if(this.RV < 0 && Math.abs(this.angle) < 0.05){
-							
+            this.shoot(ep);
             this.RV = 0.0;
             this.angle = 0.0;
         }
@@ -81,11 +82,10 @@ class Enemy2 {
 	}
 
     boolean canShoot (){
-        if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.06){
-							
+        if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.05){
             return true;
         }
-        if(this.RV < 0 && Math.abs(this.angle) < 0.06){
+        if(this.RV < 0 && Math.abs(this.angle) < 0.05){
 							
             return true;
         } 

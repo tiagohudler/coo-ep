@@ -3,6 +3,7 @@ package entities;
 public class Player{
     private States states = new States();
     private int state = states.ACTIVE;								// estado
+    private int lives = 2;
     private double X = GameLib.WIDTH / 2;					// coordenada x
     private double Y = GameLib.HEIGHT * 0.90;				// coordenada y
     private double VX = 0.25;								// velocidade no eixo x
@@ -11,6 +12,7 @@ public class Player{
     private double explosion_start = 0;						// instante do início da explosão
     private double explosion_end = 0;						// instante do final da explosão
     private long nextShoot;									// instante a partir do qual pode haver um próximo tiro
+    private boolean draw = true;
 
     public Player (long time) {
         this.nextShoot = time;
@@ -53,9 +55,18 @@ public class Player{
     }
 
     public void explode (){
-		this.state = states.EXPLODING;
-		this.explosion_start = System.currentTimeMillis();
-		this.explosion_end = System.currentTimeMillis()+2000;
+        if (this.lives > 0){
+            this.lives--;
+            this.explosion_start = System.currentTimeMillis()+300;
+            this.explosion_end = System.currentTimeMillis()+1500;
+            this.state = states.INACTIVE;
+        }
+        else{
+            this.state = states.EXPLODING;
+            this.lives = 2;
+            this.explosion_start = System.currentTimeMillis();
+            this.explosion_end = System.currentTimeMillis()+2000;
+        }
 	}
 
     public void updatePosition (long delta) {
@@ -94,6 +105,14 @@ public class Player{
 		this.nextShoot = System.currentTimeMillis()+100;;
 
 	}
+
+    public boolean shouldDraw (){
+        if(this.explosion_start < System.currentTimeMillis()){
+            this.draw ^= true;
+            this.explosion_start += 150;
+        }
+        return draw;
+    }
 }
 
 

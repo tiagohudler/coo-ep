@@ -263,17 +263,24 @@ public class Main {
 					p.setState(ACTIVE);	
 				}
 			}
+			if(p.getState() == INACTIVE){
+				
+				if(currentTime > p.getExplosionEnd()){
+					
+					p.setState(ACTIVE);	
+				}
+			}
 			
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */
 			/********************************************/
 			
-			if(p.getState() == ACTIVE){
+			if(p.getState() != EXPLODING){
 				
 				p.updatePosition(delta);
 				if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
 					
-					if(p.canShoot()){
+					if(p.canShoot() && p.getState() == ACTIVE){
 						
 						p.shoot(p_projectiles);
 
@@ -317,12 +324,18 @@ public class Main {
 						
 			/* desenhando player */
 			
-			if(p.getState() == EXPLODING){
+			if (p.getState() != ACTIVE){
+				if(p.getState() == EXPLODING){
 				
-				double alpha = (currentTime - p.getExplosionStart()) / (p.getExplosionEnd() - p.getExplosionStart());
-				GameLib.drawExplosion(p.getX(), p.getY(), alpha);
+					double alpha = (currentTime - p.getExplosionStart()) / (p.getExplosionEnd() - p.getExplosionStart());
+					GameLib.drawExplosion(p.getX(), p.getY(), alpha);
+				}
+				if (p.getState() == INACTIVE && p.shouldDraw()){
+					GameLib.setColor(Color.BLUE);
+					GameLib.drawPlayer(p.getX(), p.getY(), p.getRadius());
+				}
 			}
-			else{
+			if (p.getState() == ACTIVE) {
 				
 				GameLib.setColor(Color.BLUE);
 				GameLib.drawPlayer(p.getX(), p.getY(), p.getRadius());
