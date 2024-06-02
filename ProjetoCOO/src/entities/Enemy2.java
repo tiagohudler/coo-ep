@@ -66,7 +66,6 @@ class Enemy2 {
         }
 
         if(this.RV > 0 && Math.abs(this.angle - 3 * Math.PI) < 0.05){
-            System.out.println("oi");
 			this.shoot(ep);				
             this.RV = 0.0;
             this.angle = 3 * Math.PI;
