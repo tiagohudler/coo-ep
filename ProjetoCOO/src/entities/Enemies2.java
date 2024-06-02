@@ -82,12 +82,6 @@ public class Enemies2 {
             } 
             else {
                 
-                if(this.enemies.get(i).canShoot()){
-                        
-                    this.enemies.get(i).shoot(ep);
-                    
-                }
-                
                 this.enemies.get(i).updatePosition(delta, ep);
                 
                 
