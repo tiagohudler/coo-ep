@@ -85,7 +85,9 @@ public class Main {
 
 		Enemies2 enemies2 = new Enemies2();
 		
-		
+		/* variáveis dos inimigos tipo 2 */
+
+		Enemies3 enemies3 = new Enemies3();
 		
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
@@ -192,6 +194,18 @@ public class Main {
 						p.explode();
 					}
 				}
+
+				for(int i = 0; i < enemies3.nEnemies(); i++){
+					
+					double dx = enemies3.getX(i) - p.getX();
+					double dy = enemies3.getY(i) - p.getY();
+					double dist = Math.sqrt(dx * dx + dy * dy);
+					
+					if(dist < (p.getRadius() + enemies3.getRadius()) * 0.8){
+						
+						p.explode();
+					}
+				}
 			}
 			
 			/* colisões projeteis (player) - inimigos */
@@ -238,13 +252,17 @@ public class Main {
 			
 			e_projectiles.updateStates(delta);
 			
-			// inimigos tipo 1  TODO: botar isso dentro de Enemies1 
+			// inimigos tipo 1   
 			
 			enemies1.updatePositions(delta, e_projectiles, p);
 			
 			/* inimigos tipo 2 */
 			
 			enemies2.updatePositions(delta, e_projectiles, p);
+
+			/* inimigos tipo 3 */
+			
+			enemies3.updatePositions(delta, e_projectiles, p);
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 					
@@ -253,6 +271,10 @@ public class Main {
 			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
 			
 			enemies2.spawnEnemy();
+
+			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
+			
+			enemies3.spawnEnemy();
 			
 			/* Verificando se a explosão do player já acabou.         */
 			/* Ao final da explosão, o player volta a ser controlável */
@@ -329,7 +351,7 @@ public class Main {
 			}
 				
 			
-			/* deenhando projeteis (player) */
+			/* desenhando projeteis (player) */
 			
 			for(int i = 0; i < p_projectiles.nProjectiles(); i++){
 				
@@ -381,6 +403,23 @@ public class Main {
 			
 					GameLib.setColor(Color.MAGENTA);
 					GameLib.drawDiamond(enemies2.getX(i), enemies2.getY(i), enemies2.getRadius());
+				}
+			}
+
+			/* desenhando inimigos (tipo 3) */
+			
+			for(int i = 0; i < enemies3.nEnemies(); i++){
+				
+				if(enemies3.getState(i) == EXPLODING){
+					
+					double alpha = (currentTime - enemies3.getExplosionStart(i)) / (enemies3.getExplosionEnd(i) - enemies3.getExplosionStart(i));
+					GameLib.drawExplosion(enemies3.getX(i), enemies3.getY(i), alpha);
+				}
+				
+				if(enemies3.getState(i) == ACTIVE){
+			
+					GameLib.setColor(Color.ORANGE);
+					GameLib.drawDiamond(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
 				}
 			}
 			
