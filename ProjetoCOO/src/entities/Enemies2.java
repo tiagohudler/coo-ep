@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemies2 {
+public class Enemies2 implements CollidableArray {
     private States states = new States();
     private final double radius = 12.0;
     private int spawned = 0;
@@ -11,7 +11,7 @@ public class Enemies2 {
     private double spawnX = GameLib.WIDTH * 0.20;
     private List<Enemy2> enemies = new ArrayList<Enemy2>();
 
-    public int nEnemies (){
+    public int size (){
         return this.enemies.size();
     }
 
@@ -90,5 +90,32 @@ public class Enemies2 {
         }
     }
 
+    public void verifyCollisions(Player p) {
+        double dx, dy, dist;
+        for (Enemy2 e : this.enemies){
+            dx = e.getX() - p.getX();
+            dy = e.getY() - p.getY();
+            dist = Math.sqrt(dx * dx + dy * dy);
+            if(dist < (p.getRadius() + this.radius) * 0.8){
+    
+                p.explode();
+            }
+        }
+    }
 
+    public void verifyCollisions(CollidableArray obj) {
+        double dx, dy, dist;
+        for (Enemy2 e : this.enemies){
+            for (int i = 0;  i < obj.size(); i++){
+                dx = e.getX() - obj.getX(i);
+                dy = e.getY() - obj.getY(i);
+                dist = Math.sqrt(dx * dx + dy * dy);
+                if(dist < this.radius){
+							
+                    e.explode();
+                    
+                }
+            }    
+        }
+    }
 }

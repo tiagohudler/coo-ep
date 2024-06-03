@@ -81,14 +81,14 @@ public class Player{
         return System.currentTimeMillis() > this.nextShoot ? true : false;
     }
 
-    public void verifyCollisions (Projectiles ep){
-        for(int i = 0; i < ep.nProjectiles(); i++){
+    public void verifyCollisions (CollidableArray ep){
+        for(int i = 0; i < ep.size(); i++){
 					
             double dx = ep.getX(i) - this.X;
             double dy = ep.getY(i) - this.Y;
             double dist = Math.sqrt(dx * dx + dy * dy);
             
-            if(dist < (this.radius + ep.getRadius(i)) * 0.8){
+            if(dist < (this.radius + ep.getRadius()) * 0.8){
                 
                 this.explode();
             }

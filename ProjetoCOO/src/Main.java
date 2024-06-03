@@ -167,94 +167,20 @@ public class Main {
 				
 				/* colisões player - projeteis (inimigo) */
 				
-				p.verifyCollisions(e_projectiles);
+				e_projectiles.verifyCollisions(p);
 			
 				/* colisões player - inimigos */
 							
-				for(int i = 0; i < enemies1.nEnemies(); i++){
-					
-					double dx = enemies1.getX(i) - p.getX();
-					double dy = enemies1.getY(i) - p.getY();
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < (p.getRadius() + enemies1.getRadius()) * 0.8){
-						
-						p.explode();
-					}
-				}
+				enemies1.verifyCollisions(p);
 				
-				for(int i = 0; i < enemies2.nEnemies(); i++){
-					
-					double dx = enemies2.getX(i) - p.getX();
-					double dy = enemies2.getY(i) - p.getY();
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < (p.getRadius() + enemies2.getRadius()) * 0.8){
-						
-						p.explode();
-					}
-				}
+				enemies2.verifyCollisions(p);
 
-				for(int i = 0; i < enemies3.nEnemies(); i++){
-					
-					double dx = enemies3.getX(i) - p.getX();
-					double dy = enemies3.getY(i) - p.getY();
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < (p.getRadius() + enemies3.getRadius()) * 0.8){
-						
-						p.explode();
-					}
-				}
+				enemies3.verifyCollisions(p);
 			}
 			
 			/* colisões projeteis (player) - inimigos */
 			
-			for(int k = 0; k < p_projectiles.nProjectiles(); k++){
-				for(int i = 0; i < enemies1.nEnemies(); i++){
-					if (enemies1.getState(i) == ACTIVE){					
-						double dx = enemies1.getX(i) - p_projectiles.getX(k);
-						double dy = enemies1.getY(i) - p_projectiles.getY(k);
-						double dist = Math.sqrt(dx * dx + dy * dy);
-						
-						if(dist < enemies1.getRadius()){
-							
-							enemies1.explode(i);
-							
-						}
-					}
-				}
-				
-				for(int i = 0; i < enemies2.nEnemies(); i++){
-					
-					if (enemies2.getState(i) == ACTIVE){	
-						double dx = enemies2.getX(i) - p_projectiles.getX(k);
-						double dy = enemies2.getY(i) - p_projectiles.getY(k);
-						double dist = Math.sqrt(dx * dx + dy * dy);
-						
-						if(dist < enemies2.getRadius()){
-							
-							enemies2.explode(i);
-							
-						}
-					}
-				}
-
-				for(int i = 0; i < enemies3.nEnemies(); i++){
-					
-					if (enemies3.getState(i) == ACTIVE){	
-						double dx = enemies3.getX(i) - p_projectiles.getX(k);
-						double dy = enemies3.getY(i) - p_projectiles.getY(k);
-						double dist = Math.sqrt(dx * dx + dy * dy);
-						
-						if(dist < enemies3.getRadius()){
-							
-							enemies3.explode(i);
-							
-						}
-					}
-				}
-			}
+			p_projectiles.verifyCollisions(enemies1, enemies2, enemies3);
 				
 			/***************************/
 			/* Atualizações de estados */
@@ -384,7 +310,7 @@ public class Main {
 			
 			/* desenhando projeteis (player) */
 			
-			for(int i = 0; i < p_projectiles.nProjectiles(); i++){
+			for(int i = 0; i < p_projectiles.size(); i++){
 				
 					
 				GameLib.setColor(Color.GREEN);
@@ -396,16 +322,16 @@ public class Main {
 			
 			/* desenhando projeteis (inimigos) */
 		
-			for(int i = 0; i < e_projectiles.nProjectiles(); i++){
+			for(int i = 0; i < e_projectiles.size(); i++){
 				
 				GameLib.setColor(Color.RED);
-				GameLib.drawCircle(e_projectiles.getX(i), e_projectiles.getY(i), e_projectiles.getRadius(i));
+				GameLib.drawCircle(e_projectiles.getX(i), e_projectiles.getY(i), e_projectiles.getRadius());
 
 			}
 			
 			/* desenhando inimigos (tipo 1) */
 			
-			for(int i = 0; i < enemies1.nEnemies(); i++){
+			for(int i = 0; i < enemies1.size(); i++){
 				
 				if(enemies1.getState(i) == EXPLODING){
 					
@@ -422,7 +348,7 @@ public class Main {
 			
 			/* desenhando inimigos (tipo 2) */
 			
-			for(int i = 0; i < enemies2.nEnemies(); i++){
+			for(int i = 0; i < enemies2.size(); i++){
 				
 				if(enemies2.getState(i) == EXPLODING){
 					
@@ -439,7 +365,7 @@ public class Main {
 
 			/* desenhando inimigos (tipo 3) */
 			
-			for(int i = 0; i < enemies3.nEnemies(); i++){
+			for(int i = 0; i < enemies3.size(); i++){
 				
 				if(enemies3.getState(i) == EXPLODING){
 					

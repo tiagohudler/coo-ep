@@ -3,13 +3,13 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemies3 {
+public class Enemies3 implements CollidableArray {
     private States states = new States();
     private final double radius = 9.0;
     private List<Enemy3> enemies = new ArrayList<Enemy3>();
     private long nextEnemy = System.currentTimeMillis() + 2000;
 
-    public int nEnemies (){
+    public int size (){
         return this.enemies.size();
     }
     
@@ -95,5 +95,34 @@ public class Enemies3 {
 
     public double getRadius (){
         return this.radius;
+    }
+
+    public void verifyCollisions(Player p) {
+        double dx, dy, dist;
+        for (Enemy3 e : this.enemies){
+            dx = e.getX() - p.getX();
+            dy = e.getY() - p.getY();
+            dist = Math.sqrt(dx * dx + dy * dy);
+            if(dist < (p.getRadius() + this.radius) * 0.8){
+    
+                p.explode();
+            }
+        }
+    }
+
+    public void verifyCollisions(CollidableArray obj) {
+        double dx, dy, dist;
+        for (Enemy3 e : this.enemies){
+            for (int i = 0;  i < obj.size(); i++){
+                dx = e.getX() - obj.getX(i);
+                dy = e.getY() - obj.getY(i);
+                dist = Math.sqrt(dx * dx + dy * dy);
+                if(dist < this.radius){
+							
+                    e.explode();
+                    
+                }
+            }    
+        }
     }
 }
