@@ -39,12 +39,12 @@ public class Enemy3 {
 	}
 
 	void updatePosition (long delta) {
-
+		long currentTime = System.currentTimeMillis();
 		if(this.X > this.targetX + 10 || this.X < this.targetX - 10){
             this.X += this.V * Math.cos(this.angle) * delta;
             return;
         }
-        if(this.explosion_end > 0 && this.explosion_end < System.currentTimeMillis()) {
+        if(this.explosion_end > 0 && this.explosion_end < currentTime) {
             if(this.angle == Math.PI) {
 				this.targetX = 600;
 				this.angle = 0;
@@ -57,8 +57,8 @@ public class Enemy3 {
 			return;
         }
 		this.V = 0;
-        this.explosion_start = System.currentTimeMillis();
-		this.explosion_end = this.explosion_start+2000;
+        this.explosion_start = currentTime;
+		this.explosion_end = currentTime+2000;
 	}
 
 	double getExplosionEnd () {
@@ -82,6 +82,7 @@ public class Enemy3 {
 	}
 
 	boolean canShoot (Player p){
+		
 		if (this.V == 0 && this.explosion_end > System.currentTimeMillis()) {
             
             return true;
@@ -91,16 +92,18 @@ public class Enemy3 {
 	
 
 	void shoot (Projectiles ep){
-		Projectile p1 = new Projectile(), p2 = new Projectile(), p3 = new Projectile();
-		p1.X = this.X - 2;
-		p2.X = this.X + 2;
-		p3.X = this.X;
-		p1.Y = p2.Y = p3.Y = this.Y;
-		p1.VX = p2.VX = p3.VX = 0;
-		p1.VY = p2.VY = p3.VY = 0.45;
-		ep.addProjectile(p1);
-        ep.addProjectile(p2);
-        ep.addProjectile(p3);
-		this.nextShoot = (long) (System.currentTimeMillis() + 200);
+		if (System.currentTimeMillis() > this.nextShoot){
+			Projectile p1 = new Projectile(), p2 = new Projectile(), p3 = new Projectile();
+			p1.X = this.X - 5;
+			p2.X = this.X + 5;
+			p3.X = this.X;
+			p1.Y = p2.Y = p3.Y = this.Y;
+			p1.VX = p2.VX = p3.VX = 0;
+			p1.VY = p2.VY = p3.VY = 0.45;
+			ep.addProjectile(p1);
+			ep.addProjectile(p2);
+			ep.addProjectile(p3);
+			this.nextShoot = (long) (System.currentTimeMillis() + 50);
+		}
 	}
 }

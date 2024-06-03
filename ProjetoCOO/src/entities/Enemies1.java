@@ -14,7 +14,7 @@ public class Enemies1 {
     public void spawnEnemy() {
         if(System.currentTimeMillis() > this.nextEnemy && this.enemies.size() < 10){
             this.enemies.add(new Enemy1());
-            this.nextEnemy = System.currentTimeMillis() + 500;
+            this.nextEnemy = System.currentTimeMillis() + 650;
         }
     }
 

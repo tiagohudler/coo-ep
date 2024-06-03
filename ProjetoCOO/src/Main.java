@@ -237,6 +237,20 @@ public class Main {
 						
 					}
 				}
+
+				for(int i = 0; i < enemies3.nEnemies(); i++){
+					
+						
+					double dx = enemies3.getX(i) - p_projectiles.getX(k);
+					double dy = enemies3.getY(i) - p_projectiles.getY(k);
+					double dist = Math.sqrt(dx * dx + dy * dy);
+					
+					if(dist < enemies3.getRadius()){
+						
+						enemies3.explode(i);
+						
+					}
+				}
 			}
 				
 			/***************************/
