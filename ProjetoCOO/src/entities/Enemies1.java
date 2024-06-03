@@ -40,12 +40,6 @@ public class Enemies1 {
                     continue;
                 }
             }
-
-            /* verificando se inimigo saiu da tela */
-            if(this.enemies.get(i).getY() > GameLib.HEIGHT + 10) {
-                
-                this.enemies.remove(i);
-            } 
             else {
             
                 this.enemies.get(i).updatePosition(delta);
@@ -56,6 +50,13 @@ public class Enemies1 {
                     
                 }
             }
+
+            /* verificando se inimigo saiu da tela */
+            if(this.enemies.get(i).getY() > GameLib.HEIGHT + 10) {
+                
+                this.enemies.remove(i);
+            } 
+            
         }
     }
 
