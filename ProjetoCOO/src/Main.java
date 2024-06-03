@@ -212,43 +212,46 @@ public class Main {
 			
 			for(int k = 0; k < p_projectiles.nProjectiles(); k++){
 				for(int i = 0; i < enemies1.nEnemies(); i++){
-										
-					double dx = enemies1.getX(i) - p_projectiles.getX(k);
-					double dy = enemies1.getY(i) - p_projectiles.getY(k);
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < enemies1.getRadius()){
+					if (enemies1.getState(i) == ACTIVE){					
+						double dx = enemies1.getX(i) - p_projectiles.getX(k);
+						double dy = enemies1.getY(i) - p_projectiles.getY(k);
+						double dist = Math.sqrt(dx * dx + dy * dy);
 						
-						enemies1.explode(i);
-						
+						if(dist < enemies1.getRadius()){
+							
+							enemies1.explode(i);
+							
+						}
 					}
 				}
 				
 				for(int i = 0; i < enemies2.nEnemies(); i++){
 					
+					if (enemies2.getState(i) == ACTIVE){	
+						double dx = enemies2.getX(i) - p_projectiles.getX(k);
+						double dy = enemies2.getY(i) - p_projectiles.getY(k);
+						double dist = Math.sqrt(dx * dx + dy * dy);
 						
-					double dx = enemies2.getX(i) - p_projectiles.getX(k);
-					double dy = enemies2.getY(i) - p_projectiles.getY(k);
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < enemies2.getRadius()){
-						
-						enemies2.explode(i);
-						
+						if(dist < enemies2.getRadius()){
+							
+							enemies2.explode(i);
+							
+						}
 					}
 				}
 
 				for(int i = 0; i < enemies3.nEnemies(); i++){
 					
+					if (enemies3.getState(i) == ACTIVE){	
+						double dx = enemies3.getX(i) - p_projectiles.getX(k);
+						double dy = enemies3.getY(i) - p_projectiles.getY(k);
+						double dist = Math.sqrt(dx * dx + dy * dy);
 						
-					double dx = enemies3.getX(i) - p_projectiles.getX(k);
-					double dy = enemies3.getY(i) - p_projectiles.getY(k);
-					double dist = Math.sqrt(dx * dx + dy * dy);
-					
-					if(dist < enemies3.getRadius()){
-						
-						enemies3.explode(i);
-						
+						if(dist < enemies3.getRadius()){
+							
+							enemies3.explode(i);
+							
+						}
 					}
 				}
 			}
