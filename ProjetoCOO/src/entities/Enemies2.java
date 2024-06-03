@@ -75,17 +75,18 @@ public class Enemies2 {
                     continue;
                 }
             }
-
-            /* verificando se inimigo saiu da tela */
-            if(this.enemies.get(i).getX() < -10 || this.enemies.get(i).getX() > GameLib.HEIGHT + 10) {
-                this.enemies.remove(i);
-            } 
             else {
                 
                 this.enemies.get(i).updatePosition(delta, ep);
                 
                 
             }
+
+            /* verificando se inimigo saiu da tela */
+            if(this.enemies.get(i).getX() < -10 || this.enemies.get(i).getX() > GameLib.HEIGHT + 10) {
+                this.enemies.remove(i);
+            } 
+            
         }
     }
 

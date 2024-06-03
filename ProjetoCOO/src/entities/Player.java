@@ -1,4 +1,5 @@
 package entities;
+import java.awt.Color;
 
 public class Player{
     private States states = new States();
@@ -112,6 +113,17 @@ public class Player{
             this.explosion_start += 150;
         }
         return draw;
+    }
+
+    public void drawLives () {
+        GameLib.setColor(Color.RED);
+        int x = 440, y = 680;
+
+        for (int i = 0; i <= this.lives; i++){
+            GameLib.drawHeart(x, y);
+            x -= 25;
+        }
+        
     }
 }
 

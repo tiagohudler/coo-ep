@@ -376,7 +376,8 @@ public class Main {
 				GameLib.setColor(Color.BLUE);
 				GameLib.drawPlayer(p.getX(), p.getY(), p.getRadius());
 			}
-				
+			
+			p.drawLives();
 			
 			/* desenhando projeteis (player) */
 			
@@ -449,7 +450,6 @@ public class Main {
 					GameLib.drawRectangle(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
 				}
 			}
-			
 			/* chamama a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
 			GameLib.display();

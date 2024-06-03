@@ -44,11 +44,6 @@ public class Enemies3 {
                 }
             }
 
-            /* verificando se inimigo saiu da tela */
-            if(this.enemies.get(i).getX() > GameLib.WIDTH + 10 || this.enemies.get(i).getX() < -10) {
-                
-                this.enemies.remove(i);
-            } 
             else {
                 
                 if(this.enemies.get(i).canShoot(p)){
@@ -60,6 +55,13 @@ public class Enemies3 {
                 this.enemies.get(i).updatePosition(delta);
                 
             }
+
+            /* verificando se inimigo saiu da tela */
+            if(this.enemies.get(i).getX() > GameLib.WIDTH + 10 || this.enemies.get(i).getX() < -10) {
+                
+                this.enemies.remove(i);
+            } 
+            
         }
     }
 

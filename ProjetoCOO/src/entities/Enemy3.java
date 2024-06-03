@@ -5,7 +5,7 @@ public class Enemy3 {
 
     private int state = states.ACTIVE;
 	private double X;
-	private double Y = Math.random() * (GameLib.HEIGHT - 480) + 20.0;
+	private double Y = Math.random() * (GameLib.HEIGHT - 480) + 40.0;
 	private double V = 0.20 + Math.random() * 0.15;
 	private double angle;
 	private double targetX = Math.random() * GameLib.WIDTH;
