@@ -10,7 +10,7 @@ public class Enemy3 {
 	private double angle;
 	private double targetX = Math.random() * GameLib.WIDTH;
 	private double explosion_start = 0;
-	private double explosion_end = 0;
+	private double explosion_end = 0.0;
 	private long nextShoot = 0;
 
     Enemy3(){
@@ -40,11 +40,11 @@ public class Enemy3 {
 
 	void updatePosition (long delta) {
 		long currentTime = System.currentTimeMillis();
-		if(this.X > this.targetX + 10 || this.X < this.targetX - 10){
+		if(this.X > this.targetX + 3 || this.X < this.targetX - 3){
             this.X += this.V * Math.cos(this.angle) * delta;
             return;
         }
-        if(this.explosion_end > 0 && this.explosion_end < currentTime) {
+        if(this.explosion_end > 0 && this.explosion_end <= currentTime) {
             if(this.angle == Math.PI) {
 				this.targetX = 600;
 				this.angle = 0;
@@ -56,8 +56,7 @@ public class Enemy3 {
 			this.V = 0.35;
 			return;
         }
-		this.V = 0;
-        this.explosion_start = currentTime;
+		this.V = 0.0;
 		this.explosion_end = currentTime+2000;
 	}
 
@@ -83,7 +82,7 @@ public class Enemy3 {
 
 	boolean canShoot (Player p){
 		
-		if (this.V == 0 && this.explosion_end > System.currentTimeMillis()) {
+		if (this.V == 0.0 && this.explosion_end > System.currentTimeMillis()) {
             
             return true;
         }

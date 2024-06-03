@@ -286,7 +286,7 @@ public class Main {
 			
 			enemies2.spawnEnemy();
 
-			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
+			/* verificando se novos inimigos (tipo 3) devem ser "lançados" */
 			
 			enemies3.spawnEnemy();
 			
@@ -446,7 +446,7 @@ public class Main {
 				if(enemies3.getState(i) == ACTIVE){
 			
 					GameLib.setColor(Color.ORANGE);
-					GameLib.drawDiamond(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
+					GameLib.drawRectangle(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
 				}
 			}
 			

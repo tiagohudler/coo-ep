@@ -98,6 +98,27 @@ public class GameLib {
 		drawLine(x4, y4, x1, y1);
 	}
 	
+	public static void drawRectangle(double x, double y, double radius){
+		double rad = radius/2;
+
+		int x1 = (int) Math.round(x - rad*1.5);
+		int y1 = (int) Math.round(y - rad);
+		
+		int x2 = (int) Math.round(x - rad*1.5);
+		int y2 = (int) Math.round(y + rad);
+		
+		int x3 = (int) Math.round(x + rad*1.5);
+		int y3 = (int) Math.round(y + rad);
+		
+		int x4 = (int) Math.round(x + rad*1.5);
+		int y4 = (int) Math.round(y - rad);
+		
+		drawLine(x1, y1, x2, y2);
+		drawLine(x1, y1, x4, y4);
+		drawLine(x3, y3, x4, y4);
+		drawLine(x3, y3, x2, y2);
+	}
+
 	public static void drawPlayer(double player_X, double player_Y, double player_size){
 		
 		GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y - player_size);
