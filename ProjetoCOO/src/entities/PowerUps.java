@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerUps implements CollidableArray {
-    private double radius = 10.0;
+    private double radius = 15.0;
     private long nextPU = System.currentTimeMillis() + 5000;
     private List <PowerUp> powerups = new ArrayList<PowerUp>();
 

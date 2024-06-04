@@ -116,13 +116,12 @@ public class GameLib {
 		drawLine(x8, y8, x1, y1);
 	}
 
-	public static void drawStar (double fx, double fy){
-		int radius = 15;
+	public static void drawStar (double fx, double fy, double radius){
 		int x = (int)fx;
 		int y = (int)fy;
 
 		int x1 = x;
-		int y1 = y + radius;
+		int y1 = y + (int)radius;
 
 		int x2 = x - (int)(Math.cos(Math.PI/4)*radius);
 		int y2 = y + (int)(Math.sin(Math.PI/4)*radius)-2;
@@ -131,7 +130,7 @@ public class GameLib {
 		int y3 = y - (int)(Math.sin(Math.PI/4)*radius)+2;
 
 		int x4 = x;
-		int y4 = y - radius+2;
+		int y4 = y - (int)radius+2;
 
 		int x5 = x + (int)(Math.cos(Math.PI/4)*radius);
 		int y5 = y - (int)(Math.sin(Math.PI/4)*radius)+2;

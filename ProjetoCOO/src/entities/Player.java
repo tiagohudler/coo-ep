@@ -124,6 +124,30 @@ public class Player{
     public void setPowerup(int powerup) {
         this.powerup = powerup;
     }
+
+    public void draw(){
+        if (this.state != states.ACTIVE){
+            if(this.state == states.EXPLODING){
+            
+                double alpha = (System.currentTimeMillis() - this.explosion_start) / (this.explosion_end - this.explosion_start);
+                GameLib.drawExplosion(this.X, this.Y, alpha);
+            }
+            if (this.state == states.INACTIVE && this.shouldDraw()){
+                GameLib.setColor(Color.BLUE);
+                GameLib.drawPlayer(this.X, this.Y, this.radius);
+            }
+        }
+        if (this.state == states.ACTIVE) {
+            
+            GameLib.setColor(Color.BLUE);
+            GameLib.drawPlayer(this.X, this.Y, this.radius);
+
+            if(this.powerup == 1){
+                GameLib.setColor(Color.ORANGE);
+                GameLib.drawStar(X+1, Y, radius-5);
+            }
+        }
+    }
 }
 
 

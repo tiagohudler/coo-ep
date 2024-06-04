@@ -94,6 +94,7 @@ public class Enemies1 implements CollidableArray {
     }
 
     public void verifyCollisions(Player p) {
+        if (p.getPowerUp() == 1) return;
         double dx, dy, dist;
         for (Enemy1 e : this.enemies){
             dx = e.getX() - p.getX();

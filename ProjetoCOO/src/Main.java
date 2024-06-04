@@ -269,22 +269,7 @@ public class Main {
 						
 			/* desenhando player */
 			
-			if (p.getState() != ACTIVE){
-				if(p.getState() == EXPLODING){
-				
-					double alpha = (currentTime - p.getExplosionStart()) / (p.getExplosionEnd() - p.getExplosionStart());
-					GameLib.drawExplosion(p.getX(), p.getY(), alpha);
-				}
-				if (p.getState() == INACTIVE && p.shouldDraw()){
-					GameLib.setColor(Color.BLUE);
-					GameLib.drawPlayer(p.getX(), p.getY(), p.getRadius());
-				}
-			}
-			if (p.getState() == ACTIVE) {
-				
-				GameLib.setColor(Color.BLUE);
-				GameLib.drawPlayer(p.getX(), p.getY(), p.getRadius());
-			}
+			p.draw();
 			
 			p.drawLives();
 			
@@ -365,7 +350,7 @@ public class Main {
 			for(int i = 0; i < powerups.size(); i++){
 				
 				GameLib.setColor(Color.ORANGE);
-				GameLib.drawStar(powerups.getX(i), powerups.getY(i));
+				GameLib.drawStar(powerups.getX(i), powerups.getY(i), powerups.getRadius());
 
 			}
 
