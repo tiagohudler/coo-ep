@@ -5,6 +5,7 @@ public class Player{
     private States states = new States();
     private int state = states.ACTIVE;								// estado
     private int lives = 2;
+    private int powerup = 0;
     private double X = GameLib.WIDTH / 2;					// coordenada x
     private double Y = GameLib.HEIGHT * 0.90;				// coordenada y
     private double VX = 0.25;								// velocidade no eixo x
@@ -38,8 +39,12 @@ public class Player{
     }
 
     public double getExplosionEnd () {
-			return this.explosion_end;
-		}
+		return this.explosion_end;
+	}
+    public void setExplosion_end(double explosion_end) {
+        this.explosion_end = explosion_end;
+    }
+
     public double getExplosionStart() {
         return this.explosion_start;
     }
@@ -81,18 +86,8 @@ public class Player{
         return System.currentTimeMillis() > this.nextShoot ? true : false;
     }
 
-    public void verifyCollisions (CollidableArray ep){
-        for(int i = 0; i < ep.size(); i++){
-					
-            double dx = ep.getX(i) - this.X;
-            double dy = ep.getY(i) - this.Y;
-            double dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if(dist < (this.radius + ep.getRadius()) * 0.8){
-                
-                this.explode();
-            }
-        }
+    public int getPowerUp (){
+        return this.powerup;
     }
 
     public void shoot (Projectiles ep){
@@ -124,6 +119,10 @@ public class Player{
             x -= 25;
         }
         
+    }
+
+    public void setPowerup(int powerup) {
+        this.powerup = powerup;
     }
 }
 

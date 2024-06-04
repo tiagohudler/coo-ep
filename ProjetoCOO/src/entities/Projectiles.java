@@ -43,14 +43,19 @@ public class Projectiles implements CollidableArray {
 
     public void verifyCollisions(Player p) {
         double dx, dy, dist;
-        for (Projectile e : this.projectiles){
-            dx = e.getX() - p.getX();
-            dy = e.getY() - p.getY();
-            dist = Math.sqrt(dx * dx + dy * dy);
-            if(dist < (p.getRadius() + this.radius) * 0.8){
-    
-                p.explode();
+        if (p.getPowerUp() != 1) {
+            for (Projectile e : this.projectiles){
+                dx = e.getX() - p.getX();
+                dy = e.getY() - p.getY();
+                dist = Math.sqrt(dx * dx + dy * dy);
+                if(dist < (p.getRadius() + this.radius) * 0.8){
+        
+                    p.explode();
+                }
             }
+        }
+        else if (p.getExplosionEnd() < System.currentTimeMillis() && p.getPowerUp() != 0){
+            p.setPowerup(0);
         }
     }
 

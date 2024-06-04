@@ -20,42 +20,6 @@ public class Main {
 		
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}
-	
-	/* Encontra e devolve o primeiro índice do  */
-	/* array referente a uma posição "inativa". */
-	
-	public static int findFreeIndex(int [] stateArray){
-		
-		int i;
-		
-		for(i = 0; i < stateArray.length; i++){
-			
-			if(stateArray[i] == INACTIVE) break;
-		}
-		
-		return i;
-	}
-	
-	/* Encontra e devolve o conjunto de índices (a quantidade */
-	/* de índices é defnida através do parâmetro "amount") do */
-	/* array, referentes a posições "inativas".               */ 
-
-	public static int [] findFreeIndex(int [] stateArray, int amount){
-
-		int i, k;
-		int [] freeArray = { stateArray.length, stateArray.length, stateArray.length };
-		
-		for(i = 0, k = 0; i < stateArray.length && k < amount; i++){
-				
-			if(stateArray[i] == INACTIVE) { 
-				
-				freeArray[k] = i; 
-				k++;
-			}
-		}
-		
-		return freeArray;
-	}
 
 	/* Método principal */
 	
@@ -92,6 +56,10 @@ public class Main {
 		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 		
 		Projectiles e_projectiles = new Projectiles();
+
+		//powerups
+
+		PowerUps powerups = new PowerUps();
 
 		/* estrelas que formam o fundo de primeiro plano */
 		
@@ -181,6 +149,10 @@ public class Main {
 			/* colisões projeteis (player) - inimigos */
 			
 			p_projectiles.verifyCollisions(enemies1, enemies2, enemies3);
+
+			// colisões player - powerups
+
+			powerups.verifyCollisions(p);
 				
 			/***************************/
 			/* Atualizações de estados */
@@ -206,6 +178,10 @@ public class Main {
 			/* inimigos tipo 3 */
 			
 			enemies3.updatePositions(delta, e_projectiles, p);
+
+			//powerups
+
+			powerups.updatePositions(delta);
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 					
@@ -218,6 +194,10 @@ public class Main {
 			/* verificando se novos inimigos (tipo 3) devem ser "lançados" */
 			
 			enemies3.spawnEnemy();
+
+			// verificando se novos powerups devem ser "lançados"
+
+			powerups.spawnPowerUp();
 			
 			/* Verificando se a explosão do player já acabou.         */
 			/* Ao final da explosão, o player volta a ser controlável */
@@ -379,6 +359,16 @@ public class Main {
 					GameLib.drawRectangle(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
 				}
 			}
+
+			// desenhando powerups
+
+			for(int i = 0; i < powerups.size(); i++){
+				
+				GameLib.setColor(Color.ORANGE);
+				GameLib.drawStar(powerups.getX(i), powerups.getY(i));
+
+			}
+
 			/* chamama a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
 			GameLib.display();

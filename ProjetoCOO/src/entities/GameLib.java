@@ -115,6 +115,37 @@ public class GameLib {
 		drawLine(x7, y7, x8, y8);
 		drawLine(x8, y8, x1, y1);
 	}
+
+	public static void drawStar (double fx, double fy){
+		int radius = 15;
+		int x = (int)fx;
+		int y = (int)fy;
+
+		int x1 = x;
+		int y1 = y + radius;
+
+		int x2 = x - (int)(Math.cos(Math.PI/4)*radius);
+		int y2 = y + (int)(Math.sin(Math.PI/4)*radius)-2;
+
+		int x3 = x - (int)(Math.cos(Math.PI/4)*radius);
+		int y3 = y - (int)(Math.sin(Math.PI/4)*radius)+2;
+
+		int x4 = x;
+		int y4 = y - radius+2;
+
+		int x5 = x + (int)(Math.cos(Math.PI/4)*radius);
+		int y5 = y - (int)(Math.sin(Math.PI/4)*radius)+2;
+
+		int x6 = x + (int)(Math.cos(Math.PI/4)*radius);
+		int y6 = y + (int)(Math.sin(Math.PI/4)*radius)-2;
+
+		drawLine(x1, y1, x3, y3);
+		drawLine(x1, y1, x5, y5);
+		drawLine(x2, y2, x4, y4);
+		drawLine(x2, y2, x6, y6);
+		drawLine(x3, y3, x5, y5);
+		drawLine(x4, y4, x6, y6);
+	}
 	
 	public static void drawDiamond(double x, double y, double radius){
 		
