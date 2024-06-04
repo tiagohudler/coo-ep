@@ -93,6 +93,7 @@ public class Player{
     public void shoot (Projectiles ep){
         
 		Projectile p = new Projectile();
+        if (this.powerup == 2) p.explosive = true;
 		p.X = this.X;
 		p.Y = this.Y - 2 * this.radius;
 		p.VX = 0.0;
@@ -144,6 +145,11 @@ public class Player{
 
             if(this.powerup == 1){
                 GameLib.setColor(Color.ORANGE);
+                GameLib.drawStar(X+1, Y, radius-5);
+            }
+
+            if(this.powerup == 2){
+                GameLib.setColor(Color.PINK);
                 GameLib.drawStar(X+1, Y, radius-5);
             }
         }

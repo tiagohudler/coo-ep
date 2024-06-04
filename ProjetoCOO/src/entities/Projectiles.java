@@ -54,7 +54,7 @@ public class Projectiles implements CollidableArray {
                 }
             }
         }
-        else if (p.getExplosionEnd() < System.currentTimeMillis() && p.getPowerUp() != 0){
+        if (p.getExplosionEnd() < System.currentTimeMillis() && p.getPowerUp() != 0){
             p.setPowerup(0);
         }
     }
@@ -76,6 +76,7 @@ public class Projectiles implements CollidableArray {
     }
 
     public void verifyCollisions(CollidableArray obj1, CollidableArray obj2, CollidableArray obj3) {
+        ArrayList <Projectile> aux = new ArrayList<Projectile>();
         double dx, dy, dist;
         for (Projectile e : this.projectiles){
             for (int i = 0;  i < obj1.size(); i++){
@@ -85,6 +86,9 @@ public class Projectiles implements CollidableArray {
                 if(dist < obj1.getRadius() && obj1.getState(i) == 1){
 							
                     obj1.explode(i);
+                    if (e.explosive){
+                        e.explode(aux);
+                    }
                     
                 }
             }
@@ -95,7 +99,9 @@ public class Projectiles implements CollidableArray {
                 if(dist < obj2.getRadius() && obj2.getState(i) == 1){
 							
                     obj2.explode(i);
-                    
+                    if (e.explosive){
+                        e.explode(aux);
+                    }
                 }
             }
             for (int i = 0;  i < obj3.size(); i++){
@@ -105,10 +111,13 @@ public class Projectiles implements CollidableArray {
                 if(dist < obj3.getRadius() && obj3.getState(i) == 1){
 							
                     obj3.explode(i);
-                    
+                    if (e.explosive){
+                        e.explode(aux);
+                    }
                 }
             }     
         }
+        this.projectiles.addAll(aux);
     }
 
     public void explode (int i) {

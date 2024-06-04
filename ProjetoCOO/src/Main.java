@@ -347,12 +347,7 @@ public class Main {
 
 			// desenhando powerups
 
-			for(int i = 0; i < powerups.size(); i++){
-				
-				GameLib.setColor(Color.ORANGE);
-				GameLib.drawStar(powerups.getX(i), powerups.getY(i), powerups.getRadius());
-
-			}
+			powerups.draw();
 
 			/* chamama a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			

@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class PowerUps implements CollidableArray {
     private double radius = 15.0;
@@ -59,19 +60,32 @@ public class PowerUps implements CollidableArray {
 
     public void spawnPowerUp (){
         if (System.currentTimeMillis() > this.nextPU && this.size() == 0) {
-            //double randomizer = Math.random();
-            if (true)  {
+            double randomizer = Math.random();
+            if (randomizer < 0.5)  {
                 this.powerups.add(new PowerUp1());
                 this.nextPU += 5000;
             }
-            // if (randomizer >= 0.3 && randomizer < 0.6)  {
-            //     this.powerups.add(new PowerUp2());
-            //     this.nextPU += 5000;
-            // }
+            if (randomizer >= 0.5)  {
+                this.powerups.add(new PowerUp2());
+                this.nextPU += 5000;
+            }
             // if (randomizer >= 0.6)  {
             //     this.powerups.add(new PowerUp2());
             //     this.nextPU += 5000;
             // }
+        }
+    }
+
+    public void draw (){
+        for(PowerUp p : this.powerups){
+			if(p instanceof PowerUp1){	
+                GameLib.setColor(Color.ORANGE);
+                GameLib.drawStar(p.getX(), p.getY(), this.radius);
+            }
+            if(p instanceof PowerUp2){	
+                GameLib.setColor(Color.PINK);
+                GameLib.drawStar(p.getX(), p.getY(), this.radius);
+            }
         }
     }
 
