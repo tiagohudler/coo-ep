@@ -7,6 +7,7 @@ import java.awt.Color;
 public class PowerUps implements CollidableArray {
     private double radius = 15.0;
     private long nextPU = System.currentTimeMillis() + 5000;
+    private States states = new States();
     private List <PowerUp> powerups = new ArrayList<PowerUp>();
 
     public int size (){
@@ -33,6 +34,7 @@ public class PowerUps implements CollidableArray {
     }
 
     public void verifyCollisions (Player p){
+        if (p.getState() == states.INACTIVE) return;
         double dx, dy, dist;
         boolean hitou = false;
 
