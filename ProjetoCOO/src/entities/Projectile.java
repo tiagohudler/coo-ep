@@ -8,6 +8,7 @@ class Projectile {
     double VX;			// velocidade no eixo x
     double VY;			// velocidade no eixo y
     boolean explosive = false;
+	boolean bouncy = false;
 
     public double getX (){
 		return this.X;

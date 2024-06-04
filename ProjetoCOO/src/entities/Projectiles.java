@@ -27,12 +27,18 @@ public class Projectiles implements CollidableArray {
     public void updateStates (long delta){
         for (int i  = 0; i < this.projectiles.size(); i++){
             if(this.projectiles.get(i).Y > GameLib.HEIGHT) {
-                this.projectiles.remove(i);                
+                this.projectiles.remove(i);  
+                continue;              
             }
+
             else {
             
                 this.projectiles.get(i).X += this.projectiles.get(i).VX * delta;
                 this.projectiles.get(i).Y += this.projectiles.get(i).VY * delta;
+            }
+
+            if(this.projectiles.get(i).bouncy){
+                if(this.projectiles.get(i).X <= 0 || this.projectiles.get(i).X >= GameLib.WIDTH) this.projectiles.get(i).VX *= -1; 
             }
         }
     }

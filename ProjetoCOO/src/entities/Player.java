@@ -92,14 +92,32 @@ public class Player{
 
     public void shoot (Projectiles ep){
         
-		Projectile p = new Projectile();
-        if (this.powerup == 2) p.explosive = true;
-		p.X = this.X;
-		p.Y = this.Y - 2 * this.radius;
-		p.VX = 0.0;
-		p.VY = (-1.0);
-		ep.addProjectile(p);
-		this.nextShoot = System.currentTimeMillis()+100;;
+		if(this.powerup != 3){
+            Projectile p = new Projectile();
+            if (this.powerup == 2) p.explosive = true;
+            p.X = this.X;
+            p.Y = this.Y - 2 * this.radius;
+            p.VX = 0.0;
+            p.VY = (-1.0);
+            ep.addProjectile(p);
+            this.nextShoot = System.currentTimeMillis()+100;
+        }
+        else {
+            Projectile p1 = new Projectile();
+            Projectile p2 = new Projectile();
+            Projectile p3 = new Projectile();
+            p1.bouncy = p2.bouncy = p3.bouncy = true;
+            p1.X = p2.X = p3.X = this.X;
+            p1.Y = p2.Y = p3.Y = this.Y;
+            p1.VY = p2.VY = p3.VY = -1;
+            p1.VX = -1;
+            p2.VX = 0;
+            p3.VX = 1;
+            ep.addProjectile(p1);
+            ep.addProjectile(p2);
+            ep.addProjectile(p3);
+            this.nextShoot = System.currentTimeMillis()+100;
+        }
 
 	}
 
@@ -150,6 +168,11 @@ public class Player{
 
             if(this.powerup == 2){
                 GameLib.setColor(Color.PINK);
+                GameLib.drawStar(X+1, Y, radius-5);
+            }
+
+            if(this.powerup == 3){
+                GameLib.setColor(Color.BLUE);
                 GameLib.drawStar(X+1, Y, radius-5);
             }
         }

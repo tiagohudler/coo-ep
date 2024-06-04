@@ -34,7 +34,7 @@ public class PowerUps implements CollidableArray {
     }
 
     public void verifyCollisions (Player p){
-        if (p.getState() == states.INACTIVE) return;
+        if (p.getState() != states.ACTIVE ) return;
         double dx, dy, dist;
         boolean hitou = false;
 
@@ -63,18 +63,18 @@ public class PowerUps implements CollidableArray {
     public void spawnPowerUp (){
         if (System.currentTimeMillis() > this.nextPU && this.size() == 0) {
             double randomizer = Math.random();
-            if (randomizer < 0.5)  {
+            if (randomizer < 0.3)  {
                 this.powerups.add(new PowerUp1());
                 this.nextPU += 5000;
             }
-            if (randomizer >= 0.5)  {
+            if (randomizer < 0.6 && randomizer >= 0.3)  {
                 this.powerups.add(new PowerUp2());
                 this.nextPU += 5000;
             }
-            // if (randomizer >= 0.6)  {
-            //     this.powerups.add(new PowerUp2());
-            //     this.nextPU += 5000;
-            // }
+            if (randomizer >= 0.6)  {
+                this.powerups.add(new PowerUp3());
+                this.nextPU += 5000;
+            }
         }
     }
 
@@ -86,6 +86,10 @@ public class PowerUps implements CollidableArray {
             }
             if(p instanceof PowerUp2){	
                 GameLib.setColor(Color.PINK);
+                GameLib.drawStar(p.getX(), p.getY(), this.radius);
+            }
+            if(p instanceof PowerUp3){	
+                GameLib.setColor(Color.BLUE);
                 GameLib.drawStar(p.getX(), p.getY(), this.radius);
             }
         }
