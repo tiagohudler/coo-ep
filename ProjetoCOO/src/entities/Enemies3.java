@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class Enemies3 implements CollidableArray {
     private States states = new States();
@@ -124,6 +125,23 @@ public class Enemies3 implements CollidableArray {
                     
                 }
             }    
+        }
+    }
+
+    public void draw (){
+        for(Enemy3 e : this.enemies){
+				
+            if(e.getState() == states.EXPLODING){
+                
+                double alpha = (System.currentTimeMillis() - e.getExplosionStart()) / (e.getExplosionEnd() - e.getExplosionStart());
+                GameLib.drawExplosion(e.getX(), e.getY(), alpha);
+            }
+            
+            if(e.getState() == states.ACTIVE){
+        
+                GameLib.setColor(Color.ORANGE);
+                GameLib.drawRectangle(e.getX(), e.getY(), this.radius);
+            }
         }
     }
 }

@@ -10,4 +10,5 @@ interface CollidableArray {
     public void verifyCollisions(Player p);
     public void verifyCollisions(CollidableArray p);
     public void explode (int i);
+    public void draw ();
 }

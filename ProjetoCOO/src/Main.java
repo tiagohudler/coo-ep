@@ -39,7 +39,7 @@ public class Main {
 
 		/* variáveis dos projéteis disparados pelo player */
 
-		Projectiles p_projectiles = new Projectiles();
+		Projectiles p_projectiles = new Projectiles(p);
 		
 		/* variáveis dos inimigos tipo 1 */
 
@@ -275,75 +275,23 @@ public class Main {
 			
 			/* desenhando projeteis (player) */
 			
-			for(int i = 0; i < p_projectiles.size(); i++){
-				
-					
-				GameLib.setColor(Color.GREEN);
-				GameLib.drawLine(p_projectiles.getX(i), p_projectiles.getY(i) - 5, p_projectiles.getX(i), p_projectiles.getY(i) + 5);
-				GameLib.drawLine(p_projectiles.getX(i) - 1, p_projectiles.getY(i) - 3, p_projectiles.getX(i) - 1, p_projectiles.getY(i) + 3);
-				GameLib.drawLine(p_projectiles.getX(i) + 1, p_projectiles.getY(i) - 3, p_projectiles.getX(i) + 1, p_projectiles.getY(i) + 3);
-			
-			}
+			p_projectiles.draw();
 			
 			/* desenhando projeteis (inimigos) */
 		
-			for(int i = 0; i < e_projectiles.size(); i++){
-				
-				GameLib.setColor(Color.RED);
-				GameLib.drawCircle(e_projectiles.getX(i), e_projectiles.getY(i), e_projectiles.getRadius());
-
-			}
+			e_projectiles.draw();
 			
 			/* desenhando inimigos (tipo 1) */
 			
-			for(int i = 0; i < enemies1.size(); i++){
-				
-				if(enemies1.getState(i) == EXPLODING){
-					
-					double alpha = (currentTime - enemies1.getExplosionStart(i)) / (enemies1.getExplosionEnd(i) - enemies1.getExplosionStart(i));
-					GameLib.drawExplosion(enemies1.getX(i), enemies1.getY(i), alpha);
-				}
-				
-				if(enemies1.getState(i) == ACTIVE){
-			
-					GameLib.setColor(Color.CYAN);
-					GameLib.drawCircle(enemies1.getX(i), enemies1.getY(i), enemies1.getRadius());
-				}
-			}
+			enemies1.draw();
 			
 			/* desenhando inimigos (tipo 2) */
 			
-			for(int i = 0; i < enemies2.size(); i++){
-				
-				if(enemies2.getState(i) == EXPLODING){
-					
-					double alpha = (currentTime - enemies2.getExplosionStart(i)) / (enemies2.getExplosionEnd(i) - enemies2.getExplosionStart(i));
-					GameLib.drawExplosion(enemies2.getX(i), enemies2.getY(i), alpha);
-				}
-				
-				if(enemies2.getState(i) == ACTIVE){
-			
-					GameLib.setColor(Color.MAGENTA);
-					GameLib.drawDiamond(enemies2.getX(i), enemies2.getY(i), enemies2.getRadius());
-				}
-			}
+			enemies2.draw();
 
 			/* desenhando inimigos (tipo 3) */
 			
-			for(int i = 0; i < enemies3.size(); i++){
-				
-				if(enemies3.getState(i) == EXPLODING){
-					
-					double alpha = (currentTime - enemies3.getExplosionStart(i)) / (enemies3.getExplosionEnd(i) - enemies3.getExplosionStart(i));
-					GameLib.drawExplosion(enemies3.getX(i), enemies3.getY(i), alpha);
-				}
-				
-				if(enemies3.getState(i) == ACTIVE){
-			
-					GameLib.setColor(Color.ORANGE);
-					GameLib.drawRectangle(enemies3.getX(i), enemies3.getY(i), enemies3.getRadius());
-				}
-			}
+			enemies3.draw();
 
 			// desenhando powerups
 

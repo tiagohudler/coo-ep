@@ -2,10 +2,19 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class Projectiles implements CollidableArray {
     private List <Projectile> projectiles = new ArrayList<Projectile>();
     private double radius = 2.0;
+    private boolean player_projectiles = false;
+
+    public Projectiles (Player p){
+        this.player_projectiles = true;
+    }
+
+    public Projectiles (){
+    }
 
     void addProjectile (Projectile p){
         projectiles.add(p);
@@ -127,5 +136,28 @@ public class Projectiles implements CollidableArray {
     public int getState (int i) {
         if (i < this.size()) return 1;
         else return 0;
+    }
+
+    public void draw (){
+        /* desenhando projeteis (player) */
+        if(this.player_projectiles){
+            for(Projectile e : this.projectiles){
+                
+                GameLib.setColor(Color.GREEN);
+                GameLib.drawLine(e.X, e.Y - 5, e.X, e.Y + 5);
+                GameLib.drawLine(e.X - 1, e.Y - 3, e.X - 1, e.Y + 3);
+                GameLib.drawLine(e.X + 1, e.Y - 3, e.X + 1, e.Y + 3);
+            
+            }
+        }
+        /* desenhando projeteis (inimigos) */
+        else{
+            for(Projectile e : this.projectiles){
+                
+                GameLib.setColor(Color.RED);
+                GameLib.drawCircle(e.X, e.Y, this.radius);
+
+            }
+        }
     }
 }

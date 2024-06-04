@@ -1,5 +1,6 @@
 package entities;
 import java.util.*;
+import java.awt.Color;
 
 public class Enemies1 implements CollidableArray {
     private States states = new States();
@@ -120,6 +121,23 @@ public class Enemies1 implements CollidableArray {
                     
                 }
             }    
+        }
+    }
+
+    public void draw (){
+        for(Enemy1 e : this.enemies){
+				
+            if(e.getState() == states.EXPLODING){
+                
+                double alpha = (System.currentTimeMillis() - e.getExplosionStart()) / (e.getExplosionEnd() - e.getExplosionStart());
+                GameLib.drawExplosion(e.getX(), e.getY(), alpha);
+            }
+            
+            if(e.getState() == states.ACTIVE){
+        
+                GameLib.setColor(Color.CYAN);
+                GameLib.drawCircle(e.getX(), e.getY(), this.radius);
+            }
         }
     }
 }
