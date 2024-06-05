@@ -28,10 +28,6 @@ public class Enemies1 implements CollidableArray {
         return enemies.get(i).getY();
     }
 
-    public double getAngle(int i) {
-        return enemies.get(i).getAngle();
-    }
-
     public void updatePositions (long delta, Projectiles ep, Player p) {
         for (int i = 0; i < this.enemies.size(); i++){
             if(this.enemies.get(i).getState() == states.EXPLODING){

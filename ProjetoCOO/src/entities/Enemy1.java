@@ -1,6 +1,6 @@
 package entities;
 
-public class Enemy1 extends Enemy {
+public class Enemy1 {
 	States states = new States();
 
     private int state = states.ACTIVE;

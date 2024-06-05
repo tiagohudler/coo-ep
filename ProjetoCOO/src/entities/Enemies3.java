@@ -2,6 +2,8 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 import java.awt.Color;
 
 public class Enemies3 implements CollidableArray {
