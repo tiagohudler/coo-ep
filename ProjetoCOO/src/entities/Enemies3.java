@@ -115,6 +115,10 @@ public class Enemies3 implements CollidableArray {
     }
 
     public void verifyCollisions(CollidableArray obj) {
+        if (obj instanceof Projectiles){
+            obj.verifyCollisions(this);
+            return;
+        }
         double dx, dy, dist;
         for (Enemy3 e : this.enemies){
             for (int i = 0;  i < obj.size(); i++){
