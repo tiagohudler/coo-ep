@@ -49,7 +49,7 @@ public class Enemy3 {
 				this.targetX = 600;
 				this.angle = 0;
 			}
-            if(this.angle == 0) {
+            else {
 				this.targetX = -100;
 				this.angle = Math.PI;
 			}
