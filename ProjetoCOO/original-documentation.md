@@ -74,8 +74,10 @@ A funcionalidade do power-up 1, diferentemente dos demais, está implementada no
 
 O power-up 2 (o rosa) torna todos os projéteis disparados pelo player explosivos. Ao contato, eles explodem em mais 8 projéteis, distribuídos nos ângulos de 0, 45, 90, 135, 180, 225 , 270 e 315 graus. Os projéteis criados pela explosão também são explosivos.
 
-A funcionalidade do power-up 2 está implementada nos métodos shoot() do player em conjunto com verifyCollisions() da classe Projectiles e explode() da classe Projectile.
+A funcionalidade do power-up 2 está implementada nos métodos verifyCollisions() da classe Projectiles e explode() da classe Projectile.
 
 ### PowerUp3
 
 O power-up 3 (o azul) torna todos os projéteis disparados pelo player ricocheteantes, e adiciona mais 2 projéteis, com ângulos de 45 e 135 graus, por tiro. Ao contato com um dos lados da tela, os projéteis ricocheteantes rebatem de volta para dentro, alternando entre os ângulos de 135 e 45 graus.
+
+A funcionalidade do power-up 3 está implementada nos métodos shoot() do player em conjunto com updateStates() da classe Projectiles.
