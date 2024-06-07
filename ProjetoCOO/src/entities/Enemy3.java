@@ -44,7 +44,14 @@ public class Enemy3 {
             this.X += this.V * Math.cos(this.angle) * delta;
             return;
         }
-        if(this.explosion_end > 0 && this.explosion_end <= currentTime) {
+
+		if (explosion_end == 0){
+			this.V = 0.0;
+			this.explosion_end = currentTime+2000;
+			return;
+		}
+
+        if (this.V == 0.0) {
             if(this.angle == Math.PI) {
 				this.targetX = 600;
 				this.angle = 0;
@@ -56,8 +63,7 @@ public class Enemy3 {
 			this.V = 0.35;
 			return;
         }
-		this.V = 0.0;
-		this.explosion_end = currentTime+2000;
+		
 	}
 
 	double getExplosionEnd () {

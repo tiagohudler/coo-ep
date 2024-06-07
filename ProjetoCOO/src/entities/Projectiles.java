@@ -75,6 +75,7 @@ public class Projectiles implements CollidableArray {
     }
 
     public void verifyCollisions(CollidableArray obj) {
+        ArrayList <Projectile> aux = new ArrayList<Projectile>();
         double dx, dy, dist;
         for (Projectile e : this.projectiles){
             for (int i = 0;  i < obj.size(); i++){
@@ -84,10 +85,14 @@ public class Projectiles implements CollidableArray {
                 if(dist < obj.getRadius() && obj.getState(i) == 1){
 							
                     obj.explode(i);
+                    if (e.explosive){
+                        e.explode(aux);
+                    }
                     
                 }
             }    
         }
+        this.projectiles.addAll(aux);
     }
 
     public void verifyCollisions(CollidableArray obj1, CollidableArray obj2, CollidableArray obj3) {

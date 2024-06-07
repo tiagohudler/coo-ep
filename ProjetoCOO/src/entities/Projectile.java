@@ -60,6 +60,15 @@ class Projectile {
 	p8.VX = 1;
 	p8.VY = 0;
 
+	p1.explosive = true;
+	p2.explosive = true;
+	p3.explosive = true;
+	p4.explosive = true;
+	p5.explosive = true;
+	p6.explosive = true;
+	p7.explosive = true;
+	p8.explosive = true;
+
 	ep.add(p1);
 	ep.add(p2);
 	ep.add(p3);

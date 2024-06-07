@@ -61,17 +61,18 @@ public class Player{
     }
 
     public void explode (){
+        double currentTime = System.currentTimeMillis();
         if (this.lives > 0){
             this.lives--;
-            this.explosion_start = System.currentTimeMillis()+300;
-            this.explosion_end = System.currentTimeMillis()+1500;
+            this.explosion_start = currentTime+300;
+            this.explosion_end = currentTime+1500;
             this.state = states.INACTIVE;
         }
         else{
             this.state = states.EXPLODING;
             this.lives = 2;
-            this.explosion_start = System.currentTimeMillis();
-            this.explosion_end = System.currentTimeMillis()+2000;
+            this.explosion_start = currentTime;
+            this.explosion_end = currentTime+2000;
         }
 	}
 
