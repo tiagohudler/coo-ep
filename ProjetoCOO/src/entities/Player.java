@@ -2,8 +2,7 @@ package entities;
 import java.awt.Color;
 
 public class Player{
-    private States states = new States();
-    private int state = states.ACTIVE;								// estado
+    private int state = States.ACTIVE;								// estado
     private int lives = 2;
     private int powerup = 0;
     private double X = GameLib.WIDTH / 2;					// coordenada x
@@ -66,10 +65,10 @@ public class Player{
             this.lives--;
             this.explosion_start = currentTime+300;
             this.explosion_end = currentTime+1500;
-            this.state = states.INACTIVE;
+            this.state = States.INACTIVE;
         }
         else{
-            this.state = states.EXPLODING;
+            this.state = States.EXPLODING;
             this.lives = 2;
             this.explosion_start = currentTime;
             this.explosion_end = currentTime+2000;
@@ -146,18 +145,18 @@ public class Player{
     }
 
     public void draw(){
-        if (this.state != states.ACTIVE){
-            if(this.state == states.EXPLODING){
+        if (this.state != States.ACTIVE){
+            if(this.state == States.EXPLODING){
             
                 double alpha = (System.currentTimeMillis() - this.explosion_start) / (this.explosion_end - this.explosion_start);
                 GameLib.drawExplosion(this.X, this.Y, alpha);
             }
-            if (this.state == states.INACTIVE && this.shouldDraw()){
+            if (this.state == States.INACTIVE && this.shouldDraw()){
                 GameLib.setColor(Color.BLUE);
                 GameLib.drawPlayer(this.X, this.Y, this.radius);
             }
         }
-        if (this.state == states.ACTIVE) {
+        if (this.state == States.ACTIVE) {
             
             GameLib.setColor(Color.BLUE);
             GameLib.drawPlayer(this.X, this.Y, this.radius);

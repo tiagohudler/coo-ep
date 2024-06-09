@@ -3,7 +3,6 @@ import java.util.*;
 import java.awt.Color;
 
 public class Enemies1 implements CollidableArray {
-    private States states = new States();
     private final double radius = 9.0;
     private List<Enemy1> enemies = new ArrayList<Enemy1>();
     private long nextEnemy = System.currentTimeMillis() + 2000;
@@ -30,7 +29,7 @@ public class Enemies1 implements CollidableArray {
 
     public void updatePositions (long delta, Projectiles ep, Player p) {
         for (int i = 0; i < this.enemies.size(); i++){
-            if(this.enemies.get(i).getState() == states.EXPLODING){
+            if(this.enemies.get(i).getState() == States.EXPLODING){
 					
                 if(System.currentTimeMillis() > this.enemies.get(i).getExplosionEnd()){
                     
@@ -127,13 +126,13 @@ public class Enemies1 implements CollidableArray {
     public void draw (){
         for(Enemy1 e : this.enemies){
 				
-            if(e.getState() == states.EXPLODING){
+            if(e.getState() == States.EXPLODING){
                 
                 double alpha = (System.currentTimeMillis() - e.getExplosionStart()) / (e.getExplosionEnd() - e.getExplosionStart());
                 GameLib.drawExplosion(e.getX(), e.getY(), alpha);
             }
             
-            if(e.getState() == states.ACTIVE){
+            if(e.getState() == States.ACTIVE){
         
                 GameLib.setColor(Color.CYAN);
                 GameLib.drawCircle(e.getX(), e.getY(), this.radius);

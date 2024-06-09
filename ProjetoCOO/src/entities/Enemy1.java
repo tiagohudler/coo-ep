@@ -1,9 +1,8 @@
 package entities;
 
 public class Enemy1 {
-	States states = new States();
 
-    private int state = states.ACTIVE;
+    private int state = States.ACTIVE;
 	private double X = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
 	private double Y = -10.0;
 	private double V = 0.20 + Math.random() * 0.15;
@@ -50,7 +49,7 @@ public class Enemy1 {
 	}
 
 	void explode (){
-		this.state = states.EXPLODING;
+		this.state = States.EXPLODING;
 		this.explosion_start = System.currentTimeMillis();
 		this.explosion_end = System.currentTimeMillis()+500;
 	}

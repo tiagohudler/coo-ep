@@ -1,9 +1,8 @@
 package entities;
 
 class Enemy2 {
-    States states = new States();
 
-    private int state = states.ACTIVE;
+    private int state = States.ACTIVE;
 	private double X;
 	private double Y = -10.0;
 	private double V;
@@ -14,7 +13,7 @@ class Enemy2 {
 	
 
     Enemy2 (double spawnX){
-        this.state = this.states.ACTIVE;
+        this.state = States.ACTIVE;
         this.X = spawnX;
         this.V = 0.42;
     }
@@ -45,7 +44,7 @@ class Enemy2 {
 	}
 
     void explode (){
-		this.state = states.EXPLODING;
+		this.state = States.EXPLODING;
 		this.explosion_start = System.currentTimeMillis();
 		this.explosion_end = System.currentTimeMillis()+500;
 	}
