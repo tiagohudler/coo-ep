@@ -62,7 +62,7 @@ Os power-ups, assim como todas as outras entidades do jogo (tirando o player), p
 
 Todos os power-ups são representados por uma estrela de David, cada uma com sua respectiva cor. 
 
-Quando o player está com um power-up ativo, uma estrela da cor correspondente é desenhada no meio do indicador do player. Todos os power-ups duram 5 segundos.
+Quando o player está com um power-up ativo, uma estrela da cor correspondente é desenhada no meio do indicador do player. Todos os power-ups duram 5 segundos. Novos power-ups não spawnam enquanto o player está com um power-up ativo.
 
 ### PowerUp1
 
@@ -81,3 +81,13 @@ A funcionalidade do power-up 2 está implementada nos métodos verifyCollisions(
 O power-up 3 (o azul) torna todos os projéteis disparados pelo player ricocheteantes, e adiciona mais 2 projéteis, com ângulos de 45 e 135 graus, por tiro. Ao contato com um dos lados da tela, os projéteis ricocheteantes rebatem de volta para dentro, alternando entre os ângulos de 135 e 45 graus.
 
 A funcionalidade do power-up 3 está implementada nos métodos shoot() do player em conjunto com updateStates() da classe Projectiles.
+
+## Modificações na GameLib
+
+- drawHeart(): método utilizado para desenhar os corações que representam as vidas. Os pontos são calculados a partir de um ponto (x, y) central.
+
+- drawRectangle(): método utilizado para desenhar os inimigos tipo 3.
+
+- drawStar(): método utilizado para desenhar os power-ups.
+
+A cor das explosões também foi modificada para ser estática, pois o alpha estava fazendo com que a cor saísse do range por um motivo desconhecido (debugar valores de tempo se mostrou difícil).
