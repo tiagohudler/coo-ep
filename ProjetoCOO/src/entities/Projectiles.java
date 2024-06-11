@@ -2,6 +2,9 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gamelib.GameLib;
+
 import java.awt.Color;
 
 public class Projectiles implements CollidableArray {
@@ -69,9 +72,7 @@ public class Projectiles implements CollidableArray {
                 }
             }
         }
-        if (p.getExplosionEnd() < System.currentTimeMillis() && p.getPowerUp() != 0){
-            p.setPowerup(0);
-        }
+        
     }
 
     public void verifyCollisions(CollidableArray obj) {

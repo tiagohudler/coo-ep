@@ -1,6 +1,7 @@
 
 import background.Background;
 import entities.*;
+import gamelib.GameLib;
 
 
 public class Main {

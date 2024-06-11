@@ -1,5 +1,8 @@
 package entities;
 
+import gamelib.GameLib;
+import gamelib.States;
+
 public class Enemy1 {
 
     private int state = States.ACTIVE;

@@ -1,6 +1,9 @@
 package entities;
 import java.awt.Color;
 
+import gamelib.GameLib;
+import gamelib.States;
+
 public class Player{
     private int state = States.ACTIVE;								// estado
     private int lives = 2;
@@ -102,6 +105,9 @@ public class Player{
                 
                 this.state = States.ACTIVE;	
             }
+        }
+        if (this.explosion_end < System.currentTimeMillis() && this.powerup != 0){
+            this.powerup =  0;
         }
     }
 

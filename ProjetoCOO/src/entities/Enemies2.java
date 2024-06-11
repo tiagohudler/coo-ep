@@ -2,6 +2,10 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gamelib.GameLib;
+import gamelib.States;
+
 import java.awt.Color;
 
 public class Enemies2 implements CollidableArray {

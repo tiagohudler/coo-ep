@@ -1,5 +1,9 @@
 package entities;
 import java.util.*;
+
+import gamelib.GameLib;
+import gamelib.States;
+
 import java.awt.Color;
 
 public class Enemies1 implements CollidableArray {

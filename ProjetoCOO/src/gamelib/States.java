@@ -1,4 +1,4 @@
-package entities;
+package gamelib;
 
 
 public class States {

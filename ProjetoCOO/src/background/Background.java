@@ -1,7 +1,8 @@
 package background;
 
-import entities.GameLib;
 import java.awt.Color;
+
+import gamelib.GameLib;
 
 public class Background {
     double [] X;

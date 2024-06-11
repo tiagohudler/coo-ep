@@ -1,5 +1,8 @@
 package entities;
 
+import gamelib.GameLib;
+import gamelib.States;
+
 abstract class PowerUp {
     private double X = Math.random() * (GameLib.WIDTH - 20) + 10;
     private double Y = -5.0;
