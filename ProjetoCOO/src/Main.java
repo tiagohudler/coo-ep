@@ -197,18 +197,13 @@ public class Main {
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */
 			/********************************************/
-			
-			if(p.getState() != EXPLODING){
 				
-				p.updatePosition(delta);
-				if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+			p.updatePosition(delta);
+			if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+				
 					
-					if(p.canShoot() && p.getState() == ACTIVE){
-						
-						p.shoot(p_projectiles);
+				p.shoot(p_projectiles);
 
-					}
-				}
 			}
 			
 			if(GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) running = false;

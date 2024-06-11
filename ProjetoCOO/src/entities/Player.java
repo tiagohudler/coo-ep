@@ -76,15 +76,17 @@ public class Player{
 	}
 
     public void updatePosition (long delta) {
-        if(GameLib.iskeyPressed(GameLib.KEY_UP)) this.Y -= delta * this.VY;
-        if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) this.Y += delta * this.VY;
-        if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) this.X -= delta * this.VX;
-        if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.X += delta * this.VY;
+        if(this.state != States.EXPLODING){
+            if(GameLib.iskeyPressed(GameLib.KEY_UP)) this.Y -= delta * this.VY;
+            if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) this.Y += delta * this.VY;
+            if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) this.X -= delta * this.VX;
+            if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.X += delta * this.VY;
 
-        if(this.X < 20) this.X = 20;
-        if(this.X >= GameLib.WIDTH - 20) this.X = GameLib.WIDTH - 20;
-        if(this.Y < 25.0) this.Y = 25.0;
-        if(this.Y >= GameLib.HEIGHT - 20) this.Y = GameLib.HEIGHT - 20;
+            if(this.X < 20) this.X = 20;
+            if(this.X >= GameLib.WIDTH - 20) this.X = GameLib.WIDTH - 20;
+            if(this.Y < 25.0) this.Y = 25.0;
+            if(this.Y >= GameLib.HEIGHT - 20) this.Y = GameLib.HEIGHT - 20;
+        }
     }
 
     public boolean canShoot (){
@@ -97,6 +99,7 @@ public class Player{
 
     public void shoot (Projectiles ep){
         
+        if (!(this.canShoot() && this.state == States.ACTIVE)) return;
 		if(this.powerup != 3){
             Projectile p = new Projectile();
             if (this.powerup == 2) p.explosive = true;
