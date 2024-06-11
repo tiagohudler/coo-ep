@@ -80,6 +80,11 @@ public class Player{
         if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) this.Y += delta * this.VY;
         if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) this.X -= delta * this.VX;
         if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) this.X += delta * this.VY;
+
+        if(this.X < 20) this.X = 20;
+        if(this.X >= GameLib.WIDTH - 20) this.X = GameLib.WIDTH - 20;
+        if(this.Y < 25.0) this.Y = 25.0;
+        if(this.Y >= GameLib.HEIGHT - 20) this.Y = GameLib.HEIGHT - 20;
     }
 
     public boolean canShoot (){

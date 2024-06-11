@@ -216,10 +216,7 @@ public class Main {
 			/* Verificando se coordenadas do player ainda estão dentro	*/
 			/* da tela de jogo após processar entrada do usuário.       */
 			
-			if(p.getX() < 0.0) p.setX(0);
-			if(p.getX() >= GameLib.WIDTH) p.setX(GameLib.WIDTH - 1);
-			if(p.getY() < 25.0) p.setY(25.0);
-			if(p.getY() >= GameLib.HEIGHT) p.setY(GameLib.HEIGHT - 1);
+			
 
 			/*******************/
 			/* Desenho da cena */
