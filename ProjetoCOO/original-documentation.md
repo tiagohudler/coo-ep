@@ -64,6 +64,8 @@ Todos os power-ups são representados por uma estrela de David, cada uma com sua
 
 Quando o player está com um power-up ativo, uma estrela da cor correspondente é desenhada no meio do indicador do player. Todos os power-ups duram 5 segundos. Novos power-ups não spawnam enquanto o player está com um power-up ativo.
 
+Para cronometrar a duração do power-up o atributo explosion_end do player é utilizado, economizando memória e permitindo que o power-up seja retirado ao player ser atingido com facilidade (ser atingido muda explosion_end, assim o player perde o power-up no final do período de inatividade/explosão).
+
 ### PowerUp1
 
 O power-up 1 (o amarelo) fornece invulnerabilidade, tanto para colisões com projéteis como com inimigos.
@@ -91,3 +93,9 @@ A funcionalidade do power-up 3 está implementada nos métodos shoot() do player
 - drawStar(): método utilizado para desenhar os power-ups.
 
 A cor das explosões também foi modificada para ser estática, pois o alpha estava fazendo com que a cor saísse do range por um motivo desconhecido (debugar valores de tempo se mostrou difícil).
+
+## Críticas ao meu trabalho
+
+- utilização excessiva do método System.currentTimeMillis(), talvez seria melhor passar currentTime como parâmetro;
+- muitas classes no pacote entities, pois cada entidade do jogo precisa de duas classes (menos o player);
+- método de verificação de colisões da classe Projectiles recebe número fixo de parâmetros, o que resultou na necessidade da criação de 3 métodos verifyCollisions. Talvez passar um array de CollidableArrays resolveria o problema, porém precisaria ser criado um ColldableArray para o player (multiplayer?).
