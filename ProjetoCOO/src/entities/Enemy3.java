@@ -7,7 +7,7 @@ public class Enemy3 {
 	private double Y = Math.random() * (GameLib.HEIGHT - 480) + 40.0;
 	private double V = 0.20 + Math.random() * 0.15;
 	private double angle;
-	private double targetX = Math.random() * GameLib.WIDTH;
+	private double targetX = Math.random() * (GameLib.WIDTH - 40) + 20;
 	private double explosion_start = 0;
 	private double explosion_end = 0.0;
 	private long nextShoot = 0;

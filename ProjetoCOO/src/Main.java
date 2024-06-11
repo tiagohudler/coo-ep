@@ -179,6 +179,7 @@ public class Main {
 			
 			/* Verificando se a explosão do player já acabou.         */
 			/* Ao final da explosão, o player volta a ser controlável */
+
 			p.updateStates();
 			
 			/********************************************/
@@ -188,7 +189,6 @@ public class Main {
 			p.updatePosition(delta);
 			if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
 				
-					
 				p.shoot(p_projectiles);
 
 			}
