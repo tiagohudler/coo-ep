@@ -51,9 +51,7 @@ public class Player{
     public int getState(){
         return this.state;
     }
-    public void setState (int state){
-        this.state = state;
-    }
+    
 
     public double getRadius () {
         return this.radius;
@@ -89,6 +87,24 @@ public class Player{
         }
     }
 
+    public void updateStates (){
+        long currentTime = System.currentTimeMillis();
+        if(this.state == States.EXPLODING){
+				
+            if(currentTime > this.explosion_end){
+                
+                this.state = States.ACTIVE;	
+            }
+        }
+        if(this.state == States.INACTIVE){
+            
+            if(currentTime > this.explosion_end){
+                
+                this.state = States.ACTIVE;	
+            }
+        }
+    }
+
     public boolean canShoot (){
         return System.currentTimeMillis() > this.nextShoot ? true : false;
     }
@@ -98,7 +114,7 @@ public class Player{
     }
 
     public void shoot (Projectiles ep){
-        
+
         if (!(this.canShoot() && this.state == States.ACTIVE)) return;
 		if(this.powerup != 3){
             Projectile p = new Projectile();

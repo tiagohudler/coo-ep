@@ -179,20 +179,7 @@ public class Main {
 			
 			/* Verificando se a explosão do player já acabou.         */
 			/* Ao final da explosão, o player volta a ser controlável */
-			if(p.getState() == EXPLODING){
-				
-				if(currentTime > p.getExplosionEnd()){
-					
-					p.setState(ACTIVE);	
-				}
-			}
-			if(p.getState() == INACTIVE){
-				
-				if(currentTime > p.getExplosionEnd()){
-					
-					p.setState(ACTIVE);	
-				}
-			}
+			p.updateStates();
 			
 			/********************************************/
 			/* Verificando entrada do usuário (teclado) */
